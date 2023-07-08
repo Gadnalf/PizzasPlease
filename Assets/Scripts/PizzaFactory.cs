@@ -172,6 +172,7 @@ public class PizzaFactory : MonoBehaviour
         }
 
         instantiatedPizza.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(centerCameraPosition.x , 15), centerCameraPosition, pizzaSlideInSpeed);
+        instantiatedReceipt.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(offsetCameraPositon.x, 15), offsetCameraPositon, pizzaSlideInSpeed);
 
         return new GeneratedPizza(instantiatedPizza, instantiatedReceipt, currentPizzaGood);
     }
