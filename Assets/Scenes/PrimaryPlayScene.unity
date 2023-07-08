@@ -673,6 +673,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pizzaPrefab: {fileID: 5187429636330366291, guid: 69fc2b6af85a49041835f597cb7eebdf, type: 3}
   receiptPrefab: {fileID: 3486111770119561345, guid: 3dc39b42741dcdd439b1e4d858b7971c, type: 3}
+  crust: {fileID: 5187429636330366291, guid: 69fc2b6af85a49041835f597cb7eebdf, type: 3}
+  cheese: {fileID: 0}
+  sauces: []
+  ingredients:
+  - {fileID: 6293628039543280508, guid: 90eda50a36612b4498b2f75e23078ff3, type: 3}
+  - {fileID: 6293628039543280508, guid: d133df034df7a8e4889987afa6fa0ccf, type: 3}
+  - {fileID: 6293628039543280508, guid: 8b0d4331d8f628d489d2d802f3403671, type: 3}
+  ingredientOffset: 3
+  radialIngredientOffset: 3
+  ingredientOffsetScaleFactor: 0.32
+  crustOffset: 1
 --- !u!1 &1457724374
 GameObject:
   m_ObjectHideFlags: 0
