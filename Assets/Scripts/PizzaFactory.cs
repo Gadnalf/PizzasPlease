@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class PizzaFactory : MonoBehaviour
 {
@@ -99,7 +100,7 @@ public class PizzaFactory : MonoBehaviour
 
         if (Random.Range(0f, 1f) > 0.5)
         {
-            leftIngredients.Add(leftCheese.name);
+            leftIngredients.Add("cheese");
         }
 
         int numLeftIngredients = Random.Range(0, PossibleIngredients.Length);
@@ -121,7 +122,7 @@ public class PizzaFactory : MonoBehaviour
 
         if (Random.Range(0f, 1f) > 0.5)
         {
-            leftIngredients.Add(rightCheese.name);
+            rightIngredients.Add("cheese");
         }
 
         int numRightIngredients = Random.Range(0, PossibleIngredients.Length);
@@ -157,19 +158,16 @@ public class PizzaFactory : MonoBehaviour
         Vector3 transform = new Vector3(-5f, 0f, 0f);
         Vector3 offsetCameraPositon = centerCameraPosition + transform;
         GameObject instantiatedReceipt = Instantiate(receiptPrefab, offsetCameraPositon, Quaternion.identity);
-        Color pizzaColor = Color.green;
+        GameObject gameText = instantiatedReceipt.transform.GetChild(0).GetChild(0).gameObject;
+
+        Debug.Log(gameText.name);
+
+        string orderString = GenerateReceiptStringFromPizzaOrder(pizzaOrder);
+        Debug.Log(orderString);
+
+        gameText.GetComponent<TextMeshProUGUI>().text = GenerateReceiptStringFromPizzaOrder(pizzaOrder);
 
         bool currentPizzaGood = Random.Range(0, 2) != 0;
-        if (currentPizzaGood) {
-            instantiatedReceipt.GetComponent<Renderer>().material.SetColor("_Color", pizzaColor);
-        } else {
-            Color receiptColor = new Color(
-                Random.Range(0f, 1f), 
-                Random.Range(0f, 1f), 
-                Random.Range(0f, 1f)
-            );
-            instantiatedReceipt.GetComponent<Renderer>().material.SetColor("_Color", receiptColor);
-        }
 
         instantiatedPizza.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(centerCameraPosition.x , 15), centerCameraPosition, pizzaSlideInSpeed);
         instantiatedReceipt.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(offsetCameraPositon.x, 15), offsetCameraPositon, pizzaSlideInSpeed);
@@ -179,14 +177,12 @@ public class PizzaFactory : MonoBehaviour
 
     public GameObject InstantiatePizza(PizzaOrder order)
     {
-        Debug.Log("Instantiating pizza with order: " + order);
         GameObject pizza = Instantiate(crust);
         Vector2 origin = pizza.transform.position;
 
         float angleOffset = 0.1f;
         foreach (string ingredient in order.LeftIngredients)
         {
-            Debug.Log("Adding left ingredient: " + ingredient);
 
             GameObject nextIngredient;
             bool isIngredient = ingredientsTable.TryGetValue(ingredient, out nextIngredient);
@@ -203,7 +199,6 @@ public class PizzaFactory : MonoBehaviour
                 if (isSauce)
                 {
                     GameObject newIngredient = Instantiate(nextIngredient);
-                    Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + origin);
                     newIngredient.transform.position = origin;
                     newIngredient.transform.parent = pizza.transform;
                     newIngredient.GetComponent<Renderer>().sortingOrder = 1;
@@ -211,7 +206,6 @@ public class PizzaFactory : MonoBehaviour
                 else
                 {
                     GameObject newIngredient = Instantiate(leftCheese);
-                    Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + origin);
                     newIngredient.transform.position = origin;
                     newIngredient.transform.parent = pizza.transform;
                     newIngredient.GetComponent<Renderer>().sortingOrder = 2;
@@ -291,5 +285,74 @@ public class PizzaFactory : MonoBehaviour
                 }
             }
         }
+    }
+
+    string GenerateReceiptStringFromPizzaOrder(PizzaOrder order) {
+        int number = Random.Range(10000, 100000);
+        string output = "Order #" + number + ":\n\n";
+        string header = "Order #" + number + ":\n\n";
+
+        string size = "1x " + order.Diameter + " inch Pizza, " + order.Slices + " slices\n";
+
+        output += size;
+
+        // Concatenate lists here
+        Dictionary<string, int> ingredientList = new Dictionary<string, int>();
+
+        foreach(string ingredient in order.LeftIngredients) {
+            ingredientList[ingredient] = 1;
+        }
+
+        foreach(string ingredient in order.RightIngredients) {
+            if (ingredientList.ContainsKey(ingredient)) {
+                ingredientList[ingredient] += 2;
+            } else {
+                ingredientList[ingredient] = 2;
+            }
+        }
+
+
+        string GenerateSidedOption(string side, string ingredient) {
+            string[] options = {
+                "{0} side {1}",
+                "{1}({0})",
+                "{1}, {0} side only",
+                "{0} half {1}",
+                "{1}, only on {0} side",
+                "{1}, only on {0} half"
+            };
+
+            int index = Random.Range(0, options.Length);
+            return System.String.Format(options[index], side, ingredient);
+        }
+
+        string GenerateWholeOption(string ingredient) {
+            string[] options = {
+                "{0}",
+                "{0}, both sides",
+                "not not {0}",
+            };
+            int index = Random.Range(0, options.Length);
+            return System.String.Format(options[index], ingredient);
+        }
+
+        foreach (string ingredient in ingredientList.Keys) {
+            string processedIngredient = ingredient.Replace('_', ' ');
+            output += "- ";
+            switch(ingredientList[ingredient]) {
+                case 1:
+                    output += GenerateSidedOption("left", processedIngredient);
+                    break;
+                case 2:
+                    output += GenerateSidedOption("right", processedIngredient);
+                    break;
+                case 3:
+                    output += GenerateWholeOption(processedIngredient);
+                    break;
+            }
+            output += "\n";
+        }
+
+        return output;
     }
 }
