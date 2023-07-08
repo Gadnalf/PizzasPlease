@@ -7,6 +7,20 @@ public class PizzaFactory : MonoBehaviour
     public GameObject pizzaPrefab;
     public GameObject receiptPrefab;
 
+    public GameObject crust;
+    public GameObject cheese;
+    public List<GameObject> sauces;
+    public List<GameObject> ingredients;
+
+    private Dictionary<string, GameObject> sauceTable = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> ingredientsTable = new Dictionary<string, GameObject>();
+
+    public float ingredientOffset = 3; //inches
+    public float radialIngredientOffset = 3f; //offset around circle
+    public float ingredientOffsetScaleFactor; //to game world scale
+    public float ingredientSkew = 3;
+    public float crustOffset = 1;
+
     public struct PizzaOrder
     {
         public PizzaOrder(int diameter, int slices, List<string> leftIngredients, List<string> rightIngredients, bool wellDone)
@@ -36,10 +50,24 @@ public class PizzaFactory : MonoBehaviour
         public bool CurrentPizzaGood { get; private set; }
     }
 
+    public void Start()
+    {
+        // for faster lookup (probably)
+        foreach (GameObject sauce in sauces) {
+            sauceTable.Add(sauce.name.ToLower(), sauce);
+            Debug.Log("[PizzaFactory] Adding sauce: " + sauce.name);
+        }
+        foreach (GameObject ingredient in ingredients) {
+            ingredientsTable.Add(ingredient.name.ToLower(), ingredient);
+            Debug.Log("[PizzaFactory] Adding ingredient: " + ingredient.name);
+        }
+    }
+
     // ORDER THE PIZZA
     public PizzaOrder GenerateNewPizzaOrder() {
-        List<string> ingredients = new List<string>();
-        return new PizzaOrder(1, 1, ingredients, ingredients, false);
+        List<string> left = new List<string> { "pepperoni" };
+        List<string> right = new List<string> { "pepperoni", "mushroom", "pepper" };
+        return new PizzaOrder(16, 1, left, right, false);
     }
 
     // SUMMON THE PIZZA
@@ -47,7 +75,7 @@ public class PizzaFactory : MonoBehaviour
     {
         Vector3 centerPosition = new Vector3(0.5f, 0.5f, -Camera.main.transform.position.z);
         Vector3 centerCameraPosition = Camera.main.ViewportToWorldPoint(centerPosition);
-        GameObject instantiatedPizza = Instantiate(pizzaPrefab, centerCameraPosition, Quaternion.identity);
+        GameObject instantiatedPizza = InstantiatePizza(pizzaOrder);
 
         Vector3 transform = new Vector3(5f, 0f, 0f);
         Vector3 offsetCameraPositon = centerCameraPosition + transform;
@@ -72,5 +100,61 @@ public class PizzaFactory : MonoBehaviour
         }
 
         return new GeneratedPizza(instantiatedPizza, instantiatedReceipt, currentPizzaGood);
+    }
+
+    public GameObject InstantiatePizza(PizzaOrder order)
+    {
+        GameObject pizza = Instantiate(crust);
+
+        // TODO: don't forget to handle cheese and sauce n shit
+
+        float angleOffset = 0.1f;
+        foreach (string ingredient in order.LeftIngredients)
+        {
+            Debug.Log("Adding left ingredient: " + ingredient);
+            AddIngredientsRadially(pizza, ingredient, true, angleOffset);
+            angleOffset += ingredientSkew;
+            angleOffset *= -1;
+        }
+
+        angleOffset = 0;
+        foreach (string ingredient in order.RightIngredients)
+        {
+            Debug.Log("Adding right ingredient: " + ingredient);
+            AddIngredientsRadially(pizza, ingredient, false, angleOffset);
+            angleOffset += ingredientSkew;
+            angleOffset *= -1;
+        }
+        return pizza;
+
+        void AddIngredientsRadially(GameObject parent, string ingredientName, bool left, float angleOffset)
+        {
+            Vector2 origin = parent.transform.position;
+            Vector2 startVector = Vector2.down;
+            float angle = angleOffset;
+            for (float radius = ingredientOffset; radius < (order.Diameter - crustOffset); radius += ingredientOffset)
+            {
+                Debug.Log("Current circumference: " + 2 * 3.14f * radius);
+                float ingredientAngle = 360/Mathf.RoundToInt(2 * 3.14f * radius / radialIngredientOffset);
+                // get angle based on circumference
+                for (int i = 0; i < (360 / ingredientAngle); i++)
+                {
+                    angle += ingredientAngle;
+                    Debug.Log("Current angle: " + angle);
+                    if (left && (angle % 360 < 180) || !left && (angle % 360 >= 180))
+                    {
+                        // rotate a vector?
+                        Vector2 rotatedVector = Quaternion.AngleAxis(angle, Vector3.forward) * startVector;
+                        Vector2 offsetVector = rotatedVector * (ingredientOffsetScaleFactor * radius);
+                        Vector2 ingredientPos = origin + offsetVector;
+                        GameObject newIngredient = Instantiate(ingredientsTable[ingredientName]);
+                        Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + ingredientPos);
+                        newIngredient.transform.position = (Vector3)ingredientPos + new Vector3(0, 0, -1);
+                        newIngredient.transform.parent = parent.transform;
+                    }
+                }
+                Debug.Log(radius);
+            }
+        }
     }
 }
