@@ -585,6 +585,7 @@ GameObject:
   - component: {fileID: 1429614062}
   - component: {fileID: 1429614061}
   - component: {fileID: 1429614064}
+  - component: {fileID: 1429614065}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -654,11 +655,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a54a5b7a8cd77342b5588bcf4f98cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pizzaPrefab: {fileID: 5187429636330366291, guid: 69fc2b6af85a49041835f597cb7eebdf, type: 3}
-  receiptPrefab: {fileID: 3486111770119561345, guid: 3dc39b42741dcdd439b1e4d858b7971c, type: 3}
   instantiatedPizza: {fileID: 0}
   instantiatedReceipt: {fileID: 0}
+  pizzaFactory: {fileID: 1429614065}
   currentPizzaGood: 0
+--- !u!114 &1429614065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429614060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23bff8093547d54459765ea8bd05eac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pizzaPrefab: {fileID: 5187429636330366291, guid: 69fc2b6af85a49041835f597cb7eebdf, type: 3}
+  receiptPrefab: {fileID: 3486111770119561345, guid: 3dc39b42741dcdd439b1e4d858b7971c, type: 3}
 --- !u!1 &1457724374
 GameObject:
   m_ObjectHideFlags: 0

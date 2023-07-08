@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class NewChallengeSpawner : MonoBehaviour
 {
-    public GameObject pizzaPrefab;
-    public GameObject receiptPrefab;
     public GameObject instantiatedPizza;
     public GameObject instantiatedReceipt;
+
+    public PizzaFactory pizzaFactory;
     private int warningPoints;
     public bool currentPizzaGood;
     void Start() {
-        orderNewPizza();
+        OrderNewPizza();
     }
 
     public void onGoodReview() {
@@ -19,7 +19,7 @@ public class NewChallengeSpawner : MonoBehaviour
             warningPoints++;
             Debug.Log("Uh oh, you have "+ warningPoints + "warnings!");
         }
-        onReviewSubmitted();
+        OnReviewSubmitted();
     }
 
     public void onBadReview() {
@@ -27,40 +27,20 @@ public class NewChallengeSpawner : MonoBehaviour
             warningPoints++;
             Debug.Log("Uh oh, you have "+ warningPoints + "warnings!");
         }
-        onReviewSubmitted();
+        OnReviewSubmitted();
     }
 
-    public void onReviewSubmitted() {
+    public void OnReviewSubmitted() {
         Destroy(instantiatedPizza);
         Destroy(instantiatedReceipt);
-        orderNewPizza();
+        OrderNewPizza();
     }
 
-    private void orderNewPizza() {
-        Vector3 centerPosition = new Vector3(0.5f, 0.5f, -Camera.main.transform.position.z);
-        Vector3 centerCameraPosition = Camera.main.ViewportToWorldPoint(centerPosition);
-        instantiatedPizza = Instantiate(pizzaPrefab, centerCameraPosition, Quaternion.identity);
-
-        Vector3 transform = new Vector3(5f, 0f, 0f);
-        Vector3 offsetCameraPositon = centerCameraPosition + transform;
-        instantiatedReceipt = Instantiate(receiptPrefab, offsetCameraPositon, Quaternion.identity);
-        Color pizzaColor = new Color(
-            Random.Range(0f, 1f), 
-            Random.Range(0f, 1f), 
-            Random.Range(0f, 1f)
-        );
-        instantiatedPizza.GetComponent<Renderer>().material.SetColor("_Color", pizzaColor);
-
-        currentPizzaGood = Random.Range(0, 2) != 0;
-        if (currentPizzaGood) {
-            instantiatedReceipt.GetComponent<Renderer>().material.SetColor("_Color", pizzaColor);
-        } else {
-            Color receiptColor = new Color(
-                Random.Range(0f, 1f), 
-                Random.Range(0f, 1f), 
-                Random.Range(0f, 1f)
-            );
-            instantiatedReceipt.GetComponent<Renderer>().material.SetColor("_Color", receiptColor);
-        }
+    public void OrderNewPizza() {
+        PizzaFactory.PizzaOrder order = pizzaFactory.GenerateNewPizzaOrder();
+        PizzaFactory.GeneratedPizza pizza = pizzaFactory.CreatePizza(order);
+        instantiatedPizza = pizza.Pizza;
+        instantiatedReceipt = pizza.Receipt;
+        currentPizzaGood = pizza.CurrentPizzaGood;
     }
 }
