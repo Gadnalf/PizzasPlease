@@ -103,6 +103,7 @@ public class PizzaFactory : MonoBehaviour
     // SUMMON THE PIZZA
     public GameObject CreatePizza(PizzaOrder pizzaOrder)
     {
+        GeneratePizzaOrder()
         GameObject pizza = Instantiate(crust);
         return pizza;
     }
