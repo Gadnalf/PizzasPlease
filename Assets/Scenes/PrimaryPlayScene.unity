@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9d74110ceb90f41986cf8e2061ec50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  draggable: 1
   selectedObject: {fileID: 0}
 --- !u!61 &269176336
 BoxCollider2D:
@@ -524,8 +525,69 @@ Transform:
   m_Children:
   - {fileID: 1600650254}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &326672084
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1426554600848881779, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_Name
+      value: PizzaCrust
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.4176879
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.070969
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950835439778733203, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: df1c23880d2167647980e033dbfbe805, type: 3}
 --- !u!1 &511984767
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,7 +684,7 @@ RectTransform:
   m_Children:
   - {fileID: 117863314}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -948,6 +1010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9d74110ceb90f41986cf8e2061ec50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  draggable: 1
   selectedObject: {fileID: 0}
 --- !u!212 &1190584388
 SpriteRenderer:
@@ -1015,7 +1078,7 @@ Transform:
   m_Children:
   - {fileID: 110073487}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1190584390
 BoxCollider2D:
@@ -1080,6 +1143,7 @@ GameObject:
   - component: {fileID: 1429614061}
   - component: {fileID: 1429614064}
   - component: {fileID: 1429614065}
+  - component: {fileID: 1429614066}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1135,7 +1199,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1429614064
 MonoBehaviour:
@@ -1185,6 +1249,19 @@ MonoBehaviour:
   ingredientOffsetScaleFactor: 0.4
   ingredientSkew: 3
   crustOffset: 2.5
+  pizzaSlideInSpeed: 0.05
+--- !u!114 &1429614066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429614060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdfa775659db516459f27cd1f1456b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1460658588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,7 +1345,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1460658593
 BoxCollider2D:

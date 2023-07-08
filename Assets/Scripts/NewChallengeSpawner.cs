@@ -51,8 +51,7 @@ public class NewChallengeSpawner : MonoBehaviour
     public void OrderNewPizza() {
         PizzaFactory.PizzaOrder order = pizzaFactory.GenerateNewPizzaOrder();
         PizzaFactory.GeneratedPizza pizza = pizzaFactory.CreatePizza(order);
-        Debug.Log(pizza);
-        Debug.Log(pizza.Pizza);
+
         instantiatedPizza = pizza.Pizza;
         instantiatedReceipt = pizza.Receipt;
         currentPizzaGood = pizza.CurrentPizzaGood;

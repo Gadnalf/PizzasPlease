@@ -22,6 +22,8 @@ public class PizzaFactory : MonoBehaviour
     public float ingredientSkew = 3;
     public float crustOffset = 1;
 
+    public float pizzaSlideInSpeed = 0.3f;
+
     public struct PizzaOrder
     {
         public PizzaOrder(int diameter, int slices, List<string> leftIngredients, List<string> rightIngredients, bool wellDone)
@@ -168,6 +170,8 @@ public class PizzaFactory : MonoBehaviour
             );
             instantiatedReceipt.GetComponent<Renderer>().material.SetColor("_Color", receiptColor);
         }
+
+        instantiatedPizza.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(centerCameraPosition.x , 15), centerCameraPosition, pizzaSlideInSpeed);
 
         return new GeneratedPizza(instantiatedPizza, instantiatedReceipt, currentPizzaGood);
     }

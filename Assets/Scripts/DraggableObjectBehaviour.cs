@@ -1,40 +1,79 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DraggableObjectBehaviour : MonoBehaviour
 {
+    public bool draggable = true;
     public GameObject selectedObject;
     Vector3 offset;
     Vector3 selectionOffset = new Vector3(0f, 0f, 5f);
 
+    private bool sliding;
+    private float speed;
+    private Vector2 start;
+    private Vector2 end;
+    private Rigidbody2D rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void animateSlide(Vector2 start, Vector2 end, float speed)
+    {
+        transform.position = start;
+        this.start = start;
+        this.end = end;
+        this.speed = speed;
+        sliding = true;
+        draggable = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetMouseButtonDown(0)) {
-            Collider2D[] targetObjects = Physics2D.OverlapPointAll(mousePosition);
-            if (targetObjects.Length > 0)
+        if (draggable)
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (Input.GetMouseButtonDown(0))
             {
-                GameObject hoveredObject = targetObjects[0].transform.gameObject;
-                if (hoveredObject == this.gameObject) {
-                    selectedObject = hoveredObject;
-                    offset = selectedObject.transform.position - mousePosition - selectionOffset;
+                Collider2D[] targetObjects = Physics2D.OverlapPointAll(mousePosition);
+                if (targetObjects.Length > 0)
+                {
+                    GameObject hoveredObject = targetObjects[0].transform.gameObject;
+                    if (hoveredObject == this.gameObject)
+                    {
+                        selectedObject = hoveredObject;
+                        offset = selectedObject.transform.position - mousePosition - selectionOffset;
+                    }
+
                 }
-                
+            }
+            if (selectedObject)
+            {
+                Vector3 newPos = mousePosition + offset;
+                if (CheckBorders(newPos))
+                {
+                    selectedObject.transform.position = mousePosition + offset;
+                }
+            }
+            if (Input.GetMouseButtonUp(0) && selectedObject)
+            {
+                selectedObject.transform.position += selectionOffset;
+                selectedObject = null;
             }
         }
-        if (selectedObject)
+    }
+
+    private void FixedUpdate()
+    {
+        if (sliding)
         {
-            Vector3 newPos = mousePosition + offset;
-            if (CheckBorders(newPos)) {
-                selectedObject.transform.position = mousePosition + offset;                
+            rb.MovePosition(Vector3.Slerp(transform.position, end, speed * Time.fixedDeltaTime));
+            if ((end - (Vector2)transform.position).magnitude < 0.5f)
+            {
+                sliding = false;
+                draggable = true;
             }
-        }
-        if (Input.GetMouseButtonUp(0) && selectedObject)
-        {
-            selectedObject.transform.position += selectionOffset;
-            selectedObject = null;
         }
     }
 
