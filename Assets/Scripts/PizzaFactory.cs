@@ -77,7 +77,9 @@ public class PizzaFactory : MonoBehaviour
         Vector3 centerCameraPosition = Camera.main.ViewportToWorldPoint(centerPosition);
         GameObject instantiatedPizza = InstantiatePizza(pizzaOrder);
 
-        Vector3 transform = new Vector3(5f, 0f, 0f);
+        instantiatedPizza.GetComponents<PizzaTrashBehaviour>()[0].eventSystem = gameObject;
+
+        Vector3 transform = new Vector3(-5f, 0f, 0f);
         Vector3 offsetCameraPositon = centerCameraPosition + transform;
         GameObject instantiatedReceipt = Instantiate(receiptPrefab, offsetCameraPositon, Quaternion.identity);
         Color pizzaColor = new Color(

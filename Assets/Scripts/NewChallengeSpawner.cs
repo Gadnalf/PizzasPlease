@@ -6,26 +6,28 @@ public class NewChallengeSpawner : MonoBehaviour
 {
     public GameObject instantiatedPizza;
     public GameObject instantiatedReceipt;
+    public GameObject alert;
 
     public PizzaFactory pizzaFactory;
     private int warningPoints;
     public bool currentPizzaGood;
     void Start() {
         OrderNewPizza();
+        if (alert) {
+            alert.SetActive(false);
+        }
     }
 
     public void onGoodReview() {
         if (!currentPizzaGood) {
-            warningPoints++;
-            Debug.Log("Uh oh, you have "+ warningPoints + "warnings!");
+            StartCoroutine(ErroredJudgement());
         }
         OnReviewSubmitted();
     }
 
     public void onBadReview() {
         if (currentPizzaGood) {
-            warningPoints++;
-            Debug.Log("Uh oh, you have "+ warningPoints + "warnings!");
+            StartCoroutine(ErroredJudgement());
         }
         OnReviewSubmitted();
     }
@@ -34,6 +36,14 @@ public class NewChallengeSpawner : MonoBehaviour
         Destroy(instantiatedPizza);
         Destroy(instantiatedReceipt);
         OrderNewPizza();
+    }
+
+    IEnumerator ErroredJudgement() {
+        warningPoints++;
+        Debug.Log("Uh oh, you have "+ warningPoints + " warnings!");
+        alert.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        alert.SetActive(false);
     }
 
     public void OrderNewPizza() {
