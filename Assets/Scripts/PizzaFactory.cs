@@ -82,7 +82,7 @@ public class PizzaFactory : MonoBehaviour
         // set right ingredients
         sauceChoice = Random.Range(0,2);
         if(sauceChoice < 2){
-            leftIngredients.Add(PossibleSauce[sauceChoice]);
+            rightIngredients.Add(PossibleSauce[sauceChoice]);
         } // else no sauce
 
         int numRightIngredients = Random.Range(0,PossibleIngredients.Length-1);
