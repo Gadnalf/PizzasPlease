@@ -1152,7 +1152,6 @@ MonoBehaviour:
   instantiatedPizza: {fileID: 0}
   instantiatedReceipt: {fileID: 0}
   alert: {fileID: 895020269}
-  pizzaFactory: {fileID: 1429614065}
   currentPizzaGood: 0
 --- !u!114 &1429614065
 MonoBehaviour:
@@ -1264,8 +1263,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460658588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.07, y: 4, z: 10}
-  m_LocalScale: {x: 1.9526, y: 2.0547, z: 1}
+  m_LocalPosition: {x: 0, y: -5, z: 10}
+  m_LocalScale: {x: 9, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

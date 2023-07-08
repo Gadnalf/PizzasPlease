@@ -95,7 +95,7 @@ public class PizzaFactory : MonoBehaviour
             leftIngredients.Add(PossibleSauce[sauceChoice]);
         }
 
-        if (Random.Range(0, 1) == 0)
+        if (Random.Range(0f, 1f) > 0.5)
         {
             leftIngredients.Add(leftCheese.name);
         }
@@ -117,7 +117,7 @@ public class PizzaFactory : MonoBehaviour
             rightIngredients.Add(PossibleSauce[sauceChoice]);
         } // else no sauce
 
-        if (Random.Range(0, 1) == 0)
+        if (Random.Range(0f, 1f) > 0.5)
         {
             leftIngredients.Add(rightCheese.name);
         }
@@ -134,7 +134,7 @@ public class PizzaFactory : MonoBehaviour
         Debug.Log("rightIngredients" + string.Join(", ", rightIngredients.ToArray()));
 
         // is well done
-        if (Random.Range(0,1) == 0){
+        if (Random.Range(0f,1f) > 0.5){
             wellDone = false;
         } else {
             wellDone = true;
@@ -155,12 +155,7 @@ public class PizzaFactory : MonoBehaviour
         Vector3 transform = new Vector3(-5f, 0f, 0f);
         Vector3 offsetCameraPositon = centerCameraPosition + transform;
         GameObject instantiatedReceipt = Instantiate(receiptPrefab, offsetCameraPositon, Quaternion.identity);
-        Color pizzaColor = new Color(
-            Random.Range(0f, 1f), 
-            Random.Range(0f, 1f), 
-            Random.Range(0f, 1f)
-        );
-        instantiatedPizza.GetComponent<Renderer>().material.SetColor("_Color", pizzaColor);
+        Color pizzaColor = Color.green;
 
         bool currentPizzaGood = Random.Range(0, 2) != 0;
         if (currentPizzaGood) {
@@ -217,6 +212,11 @@ public class PizzaFactory : MonoBehaviour
                     newIngredient.GetComponent<Renderer>().sortingOrder = 2;
                 }
             }
+
+            if (order.WellDone)
+            {
+                pizza.GetComponent<Renderer>().material.SetColor("_Color", new Color(150f/256f, 75f/256f, 0));
+            }
         }
 
         angleOffset = 0;
@@ -264,6 +264,7 @@ public class PizzaFactory : MonoBehaviour
             {
                 //Debug.Log("Current circumference: " + 2 * 3.14f * radius);
                 float ingredientAngle = 360/Mathf.RoundToInt(2 * 3.14f * radius / radialIngredientOffset);
+                angle += ingredientAngle / 2;
                 // get angle based on circumference
                 for (int i = 0; i < (360 / ingredientAngle); i++)
                 {

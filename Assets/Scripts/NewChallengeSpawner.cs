@@ -8,10 +8,12 @@ public class NewChallengeSpawner : MonoBehaviour
     public GameObject instantiatedReceipt;
     public GameObject alert;
 
-    public PizzaFactory pizzaFactory;
+    private PizzaFactory pizzaFactory;
     private int warningPoints;
     public bool currentPizzaGood;
     void Start() {
+        pizzaFactory = GetComponent<PizzaFactory>();
+
         OrderNewPizza();
         if (alert) {
             alert.SetActive(false);
@@ -49,6 +51,8 @@ public class NewChallengeSpawner : MonoBehaviour
     public void OrderNewPizza() {
         PizzaFactory.PizzaOrder order = pizzaFactory.GenerateNewPizzaOrder();
         PizzaFactory.GeneratedPizza pizza = pizzaFactory.CreatePizza(order);
+        Debug.Log(pizza);
+        Debug.Log(pizza.Pizza);
         instantiatedPizza = pizza.Pizza;
         instantiatedReceipt = pizza.Receipt;
         currentPizzaGood = pizza.CurrentPizzaGood;
