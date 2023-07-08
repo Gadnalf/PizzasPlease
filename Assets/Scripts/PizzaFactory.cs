@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PizzaFactory : MonoBehaviour
@@ -65,8 +66,8 @@ public class PizzaFactory : MonoBehaviour
 
     // ORDER THE PIZZA
     public PizzaOrder GenerateNewPizzaOrder() {
-        string[] PossibleSauce = {"tomato sauce",  "pesto sauce"};
-        string[] PossibleIngredients = {"cheese", "pepperoni", "mushrooms", "peppers", "pineapple", "anchovies", "olives"};
+        string[] PossibleSauce = sauceTable.Keys.ToArray();
+        string[] PossibleIngredients = ingredientsTable.Keys.ToArray();
 
         Debug.Log("It's pizza time!");
         int diameter;
@@ -89,17 +90,17 @@ public class PizzaFactory : MonoBehaviour
         slices = Random.Range(1,6) * 2;
 
         // set left ingredients
-        int sauceChoice = Random.Range(0,2);
+        int sauceChoice = Random.Range(0, PossibleSauce.Length);
         if(sauceChoice < 2){
             leftIngredients.Add(PossibleSauce[sauceChoice]);
         } 
         
 
-        int numLeftIngredients = Random.Range(0,PossibleIngredients.Length-1);
+        int numLeftIngredients = Random.Range(0, PossibleIngredients.Length);
         
 
         for(int i = 0; i < numLeftIngredients; i ++){
-            string topping = PossibleIngredients[Random.Range(0,PossibleIngredients.Length-1)];
+            string topping = PossibleIngredients[Random.Range(0, PossibleIngredients.Length)];
             if(!leftIngredients.Contains(topping)){
                 leftIngredients.Add(topping);
             }
@@ -107,16 +108,16 @@ public class PizzaFactory : MonoBehaviour
         Debug.Log("leftIngredients" + string.Join(", ", leftIngredients.ToArray()));
 
         // set right ingredients
-        sauceChoice = Random.Range(0,2);
+        sauceChoice = Random.Range(0, PossibleSauce.Length);
         if(sauceChoice < 2){
             rightIngredients.Add(PossibleSauce[sauceChoice]);
         } // else no sauce
 
-        int numRightIngredients = Random.Range(0,PossibleIngredients.Length-1);
+        int numRightIngredients = Random.Range(0, PossibleIngredients.Length);
         
 
         for(int i = 0; i < numRightIngredients; i ++){
-            string topping = PossibleIngredients[Random.Range(0,PossibleIngredients.Length-1)];
+            string topping = PossibleIngredients[Random.Range(0, PossibleIngredients.Length)];
             if(!rightIngredients.Contains(topping)){
                 rightIngredients.Add(topping);
             }
