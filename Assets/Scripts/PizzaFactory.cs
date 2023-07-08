@@ -111,7 +111,7 @@ public class PizzaFactory : MonoBehaviour
         float angleOffset = 0.1f;
         foreach (string ingredient in order.LeftIngredients)
         {
-            Debug.Log("Adding left ingredient: " + ingredient);
+            //Debug.Log("Adding left ingredient: " + ingredient);
             AddIngredientsRadially(pizza, ingredient, true, angleOffset);
             angleOffset += ingredientSkew;
             angleOffset *= -1;
@@ -120,7 +120,7 @@ public class PizzaFactory : MonoBehaviour
         angleOffset = 0;
         foreach (string ingredient in order.RightIngredients)
         {
-            Debug.Log("Adding right ingredient: " + ingredient);
+            //Debug.Log("Adding right ingredient: " + ingredient);
             AddIngredientsRadially(pizza, ingredient, false, angleOffset);
             angleOffset += ingredientSkew;
             angleOffset *= -1;
@@ -130,25 +130,24 @@ public class PizzaFactory : MonoBehaviour
         void AddIngredientsRadially(GameObject parent, string ingredientName, bool left, float angleOffset)
         {
             Vector2 origin = parent.transform.position;
-            Vector2 startVector = Vector2.down;
             float angle = angleOffset;
             for (float radius = ingredientOffset; radius < (order.Diameter - crustOffset); radius += ingredientOffset)
             {
-                Debug.Log("Current circumference: " + 2 * 3.14f * radius);
+                //Debug.Log("Current circumference: " + 2 * 3.14f * radius);
                 float ingredientAngle = 360/Mathf.RoundToInt(2 * 3.14f * radius / radialIngredientOffset);
                 // get angle based on circumference
                 for (int i = 0; i < (360 / ingredientAngle); i++)
                 {
                     angle += ingredientAngle;
-                    Debug.Log("Current angle: " + angle);
+                    //Debug.Log("Current angle: " + angle);
                     if (left && (angle % 360 < 180) || !left && (angle % 360 >= 180))
                     {
                         // rotate a vector?
-                        Vector2 rotatedVector = Quaternion.AngleAxis(angle, Vector3.forward) * startVector;
-                        Vector2 offsetVector = rotatedVector * (ingredientOffsetScaleFactor * radius);
+                        Vector2 rotationVector = Quaternion.AngleAxis(angle, Vector3.forward) * Vector2.down;
+                        Vector2 offsetVector = rotationVector * (ingredientOffsetScaleFactor * (radius + Random.Range(-0.2f, 0.2f)));
                         Vector2 ingredientPos = origin + offsetVector;
                         GameObject newIngredient = Instantiate(ingredientsTable[ingredientName]);
-                        Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + ingredientPos);
+                        //Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + ingredientPos);
                         newIngredient.transform.position = (Vector3)ingredientPos + new Vector3(0, 0, -1);
                         newIngredient.transform.parent = parent.transform;
                     }
