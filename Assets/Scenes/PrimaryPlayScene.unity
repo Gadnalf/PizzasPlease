@@ -1168,6 +1168,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pizzaPrefab: {fileID: 5187429636330366291, guid: 69fc2b6af85a49041835f597cb7eebdf, type: 3}
   receiptPrefab: {fileID: 3486111770119561345, guid: 3dc39b42741dcdd439b1e4d858b7971c, type: 3}
+  crust: {fileID: 1426554600848881779, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+  leftCheese: {fileID: 7398431028023121568, guid: fa349c94d474d3043ae5c7d421b1a033, type: 3}
+  rightCheese: {fileID: 834561698677177288, guid: f20e2b8dd71a83c468955adac26b5dc4, type: 3}
+  sauces:
+  - {fileID: 6272994834933473595, guid: 9322393b82ae89a4787a4e3c54c3d1e2, type: 3}
+  - {fileID: 4018903686176647451, guid: 0a1a0fb3324e2a74db9db8e25334b593, type: 3}
+  ingredients:
+  - {fileID: 5014272646963062696, guid: ce481227fa7b1c74faf154f72cc98e74, type: 3}
+  - {fileID: 993656040049405889, guid: d133df034df7a8e4889987afa6fa0ccf, type: 3}
+  - {fileID: 1109815336889316343, guid: e4c45bc84b764c946a1c4413192296ef, type: 3}
+  - {fileID: 3672397538680575755, guid: 8b0d4331d8f628d489d2d802f3403671, type: 3}
+  - {fileID: 70488643162428012, guid: 90eda50a36612b4498b2f75e23078ff3, type: 3}
+  - {fileID: 2415633581139353306, guid: 311ff2f26788be141ad8329a9d3ade1a, type: 3}
+  ingredientOffset: 3
+  radialIngredientOffset: 3
+  ingredientOffsetScaleFactor: 0.4
+  ingredientSkew: 3
+  crustOffset: 2.5
 --- !u!1 &1460658588
 GameObject:
   m_ObjectHideFlags: 0

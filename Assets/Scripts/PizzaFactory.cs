@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,7 +8,8 @@ public class PizzaFactory : MonoBehaviour
     public GameObject receiptPrefab;
 
     public GameObject crust;
-    public GameObject cheese;
+    public GameObject leftCheese;
+    public GameObject rightCheese;
     public List<GameObject> sauces;
     public List<GameObject> ingredients;
 
@@ -93,8 +93,12 @@ public class PizzaFactory : MonoBehaviour
         int sauceChoice = Random.Range(0, PossibleSauce.Length);
         if(sauceChoice < 2){
             leftIngredients.Add(PossibleSauce[sauceChoice]);
-        } 
-        
+        }
+
+        if (Random.Range(0, 1) == 0)
+        {
+            leftIngredients.Add(leftCheese.name);
+        }
 
         int numLeftIngredients = Random.Range(0, PossibleIngredients.Length);
         
@@ -108,10 +112,15 @@ public class PizzaFactory : MonoBehaviour
         Debug.Log("leftIngredients" + string.Join(", ", leftIngredients.ToArray()));
 
         // set right ingredients
-        sauceChoice = Random.Range(0, PossibleSauce.Length);
+        sauceChoice = Random.Range(0, PossibleSauce.Length + 1);
         if(sauceChoice < 2){
             rightIngredients.Add(PossibleSauce[sauceChoice]);
         } // else no sauce
+
+        if (Random.Range(0, 1) == 0)
+        {
+            leftIngredients.Add(rightCheese.name);
+        }
 
         int numRightIngredients = Random.Range(0, PossibleIngredients.Length);
         
@@ -170,32 +179,86 @@ public class PizzaFactory : MonoBehaviour
 
     public GameObject InstantiatePizza(PizzaOrder order)
     {
+        Debug.Log("Instantiating pizza with order: " + order);
         GameObject pizza = Instantiate(crust);
-
-        // TODO: don't forget to handle cheese and sauce n shit
+        Vector2 origin = pizza.transform.position;
 
         float angleOffset = 0.1f;
         foreach (string ingredient in order.LeftIngredients)
         {
-            //Debug.Log("Adding left ingredient: " + ingredient);
-            AddIngredientsRadially(pizza, ingredient, true, angleOffset);
-            angleOffset += ingredientSkew;
-            angleOffset *= -1;
+            Debug.Log("Adding left ingredient: " + ingredient);
+
+            GameObject nextIngredient;
+            bool isIngredient = ingredientsTable.TryGetValue(ingredient, out nextIngredient);
+
+
+            if (isIngredient)
+            {
+                AddIngredientsRadially(nextIngredient, true, angleOffset);
+                angleOffset += ingredientSkew;
+                angleOffset *= -1;
+            }
+            else {
+                bool isSauce = sauceTable.TryGetValue(ingredient, out nextIngredient);
+                if (isSauce)
+                {
+                    GameObject newIngredient = Instantiate(nextIngredient);
+                    Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + origin);
+                    newIngredient.transform.position = origin;
+                    newIngredient.transform.parent = pizza.transform;
+                    newIngredient.GetComponent<Renderer>().sortingOrder = 1;
+                }
+                else
+                {
+                    GameObject newIngredient = Instantiate(leftCheese);
+                    Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + origin);
+                    newIngredient.transform.position = origin;
+                    newIngredient.transform.parent = pizza.transform;
+                    newIngredient.GetComponent<Renderer>().sortingOrder = 2;
+                }
+            }
         }
 
         angleOffset = 0;
         foreach (string ingredient in order.RightIngredients)
         {
-            //Debug.Log("Adding right ingredient: " + ingredient);
-            AddIngredientsRadially(pizza, ingredient, false, angleOffset);
-            angleOffset += ingredientSkew;
-            angleOffset *= -1;
+            // yes this is duplicating code, no I am not going to refactor this
+            Debug.Log("Adding right ingredient: " + ingredient);
+
+            GameObject nextIngredient;
+            bool isIngredient = ingredientsTable.TryGetValue(ingredient, out nextIngredient);
+
+            if (isIngredient)
+            {
+                AddIngredientsRadially(nextIngredient, false, angleOffset);
+                angleOffset += ingredientSkew;
+                angleOffset *= -1;
+            }
+            else
+            {
+                bool isSauce = sauceTable.TryGetValue(ingredient, out nextIngredient);
+                if (isSauce) {
+                    GameObject newIngredient = Instantiate(nextIngredient);
+                    Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + origin);
+                    newIngredient.transform.position = origin;
+                    newIngredient.transform.parent = pizza.transform;
+                    newIngredient.GetComponent<Renderer>().sortingOrder = 1;
+                    newIngredient.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+                }
+                else
+                {
+                    GameObject newIngredient = Instantiate(rightCheese);
+                    Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + origin);
+                    newIngredient.transform.position = origin;
+                    newIngredient.transform.parent = pizza.transform;
+                    newIngredient.GetComponent<Renderer>().sortingOrder = 2;
+                }
+            }
         }
         return pizza;
 
-        void AddIngredientsRadially(GameObject parent, string ingredientName, bool left, float angleOffset)
+        void AddIngredientsRadially(GameObject ingredient, bool left, float angleOffset)
         {
-            Vector2 origin = parent.transform.position;
             float angle = angleOffset;
             for (float radius = ingredientOffset; radius < (order.Diameter - crustOffset); radius += ingredientOffset)
             {
@@ -210,15 +273,16 @@ public class PizzaFactory : MonoBehaviour
                     {
                         // rotate a vector?
                         Vector2 rotationVector = Quaternion.AngleAxis(angle, Vector3.forward) * Vector2.down;
-                        Vector2 offsetVector = rotationVector * (ingredientOffsetScaleFactor * (radius + Random.Range(-0.2f, 0.2f)));
+                        Vector2 offsetVector = rotationVector * (ingredientOffsetScaleFactor * (radius + Random.Range(-0.2f*ingredientOffset, 0.2f*ingredientOffset)));
                         Vector2 ingredientPos = origin + offsetVector;
-                        GameObject newIngredient = Instantiate(ingredientsTable[ingredientName]);
+                        GameObject newIngredient = Instantiate(ingredient);
                         //Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + ingredientPos);
                         newIngredient.transform.position = (Vector3)ingredientPos + new Vector3(0, 0, -1);
-                        newIngredient.transform.parent = parent.transform;
+                        newIngredient.GetComponent<Renderer>().sortingOrder = 3;
+                        newIngredient.transform.parent = pizza.transform;
+                        newIngredient.transform.Rotate(new Vector3(0, 0, Random.Range(0, 360)));
                     }
                 }
-                Debug.Log(radius);
             }
         }
     }
