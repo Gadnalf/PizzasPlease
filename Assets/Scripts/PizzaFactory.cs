@@ -65,9 +65,72 @@ public class PizzaFactory : MonoBehaviour
 
     // ORDER THE PIZZA
     public PizzaOrder GenerateNewPizzaOrder() {
-        List<string> left = new List<string> { "pepperoni" };
-        List<string> right = new List<string> { "pepperoni", "mushroom", "pepper" };
-        return new PizzaOrder(16, 1, left, right, false);
+        string[] PossibleSauce = {"tomato sauce",  "pesto sauce"};
+        string[] PossibleIngredients = {"cheese", "pepperoni", "mushrooms", "peppers", "pineapple", "anchovies", "olives"};
+
+        Debug.Log("It's pizza time!");
+        int diameter;
+        int slices;
+        List<string> leftIngredients = new List<string>();
+        List<string> rightIngredients = new List<string>();
+        bool wellDone;
+
+
+        // set diameter
+        // int personal = 10;
+        int small = 12;
+        int medium = 14;
+        int large = 16; 
+        int[] sizes = {small, medium, large};
+        diameter = sizes[Random.Range(0,2)];
+        Debug.Log("diameter" + diameter);
+
+        // set number of slices
+        slices = Random.Range(1,6) * 2;
+
+        // set left ingredients
+        int sauceChoice = Random.Range(0,2);
+        if(sauceChoice < 2){
+            leftIngredients.Add(PossibleSauce[sauceChoice]);
+        } 
+        
+
+        int numLeftIngredients = Random.Range(0,PossibleIngredients.Length-1);
+        
+
+        for(int i = 0; i < numLeftIngredients; i ++){
+            string topping = PossibleIngredients[Random.Range(0,PossibleIngredients.Length-1)];
+            if(!leftIngredients.Contains(topping)){
+                leftIngredients.Add(topping);
+            }
+        }
+        Debug.Log("leftIngredients" + string.Join(", ", leftIngredients.ToArray()));
+
+        // set right ingredients
+        sauceChoice = Random.Range(0,2);
+        if(sauceChoice < 2){
+            rightIngredients.Add(PossibleSauce[sauceChoice]);
+        } // else no sauce
+
+        int numRightIngredients = Random.Range(0,PossibleIngredients.Length-1);
+        
+
+        for(int i = 0; i < numRightIngredients; i ++){
+            string topping = PossibleIngredients[Random.Range(0,PossibleIngredients.Length-1)];
+            if(!rightIngredients.Contains(topping)){
+                rightIngredients.Add(topping);
+            }
+        }
+        Debug.Log("rightIngredients" + string.Join(", ", rightIngredients.ToArray()));
+
+        // is well done
+        if (Random.Range(0,1) == 0){
+            wellDone = false;
+        } else {
+            wellDone = true;
+        }
+        Debug.Log("wellDone" + wellDone);
+        return new PizzaOrder(diameter, slices, leftIngredients, rightIngredients, wellDone);
     }
 
     // SUMMON THE PIZZA
