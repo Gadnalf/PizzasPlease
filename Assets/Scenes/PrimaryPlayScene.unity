@@ -2851,7 +2851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 984555190609254399, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.4395313
+      value: 1.3315665
       objectReference: {fileID: 0}
     - target: {fileID: 2246964385999596904, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
       propertyPath: m_RootOrder
@@ -2911,7 +2911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3296560877245057152, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
       propertyPath: m_margin.x
-      value: 10.065086
+      value: 8.201284
       objectReference: {fileID: 0}
     - target: {fileID: 3296560877245057152, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
       propertyPath: m_margin.y
@@ -2919,7 +2919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3296560877245057152, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
       propertyPath: m_margin.z
-      value: 9.508589
+      value: 7.911026
       objectReference: {fileID: 0}
     - target: {fileID: 3296560877245057152, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
       propertyPath: m_characterSpacing
