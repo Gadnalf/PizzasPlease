@@ -16,7 +16,7 @@ public class CitationFactory : MonoBehaviour
     private int printingProgress;
     int citationLevel = 0;
 
-    string header = "ZELP CUSTOMER SERVICE TICKET\n" +
+    string header = "PELP CUSTOMER SERVICE TICKET\n" +
         "CUSTOMER ID: 17KR67WK\n" +
         "---------------------\n" +
         "Message from Customer Service\n" +
@@ -27,12 +27,14 @@ public class CitationFactory : MonoBehaviour
     {
         "Your account has been flagged on " +
         "suspicion of fabricating negative " +
-        "Zelp reviews. I'm sure it's just " +
+        "Zelp reviews.\n\n" +
+        "I'm sure it's just " +
         "a system error, but I wanted to check " +
         "in to see if everything is okay?",
 
         "Hi, your account has been flagged " +
-        "once again. I'm sorry to inform " +
+        "once again.\n\n" +
+        "I'm sorry to inform " +
         "you that this is your second strike " +
         "and that further infractions may " +
         "result in account termination.",
@@ -42,7 +44,7 @@ public class CitationFactory : MonoBehaviour
 
         "I see you.\n" +
         "You can't get away this time.\n\n" +
-        "Kindly stay put while the Zelp Content " +
+        "Kindly stay put while the Pelp Content " +
         "Moderation and User Termination team " +
         "expunge your location."
     };
