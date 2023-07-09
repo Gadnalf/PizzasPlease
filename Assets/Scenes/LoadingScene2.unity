@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 835103ff7f5c4bc4a990c8be48a21132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullText: As your first assignment, you will review pizzas from {insert name here}.
+  fullText: As your first assignment, you will review pizzas from Slice of Life Pizza.
 --- !u!114 &570974261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,8 +511,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015259, y: -102}
-  m_SizeDelta: {x: 919.66, y: 160.04}
+  m_AnchoredPosition: {x: 0.00000095367, y: -102}
+  m_SizeDelta: {x: 1076.63, y: 160.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &792475587
 GameObject:
