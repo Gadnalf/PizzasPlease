@@ -16,5 +16,10 @@ public class ZelpController : MonoBehaviour
         public string TextContent { get; set; }
     }
 
-    Queue<Review> lastNReviews = new Queue<Review>();
+    Queue<Review> lastNReviews;
+
+    public void Start()
+    {
+        lastNReviews = new Queue<Review>();
+    }
 }
