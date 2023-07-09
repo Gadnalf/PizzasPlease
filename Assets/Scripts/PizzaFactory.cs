@@ -72,7 +72,7 @@ public class PizzaFactory : MonoBehaviour
         Debug.Log("diameter" + diameter);
 
         // set number of slices
-        slices = Random.Range(1,6) * 2;
+        slices = Random.Range(0,6) * 2;
 
         // set left ingredients
         if (Random.Range(0f, 1f) > 0.5)
@@ -142,7 +142,7 @@ public class PizzaFactory : MonoBehaviour
         }
         else if (rand < 0.6)
         {
-            if (Random.Range(0f, 1f) > 0.5)
+            if (pizzaOrder.Slices == 0 || Random.Range(0f, 1f) > 0.5)
             {
                 pizzaOrder.Slices += 2;
             }
