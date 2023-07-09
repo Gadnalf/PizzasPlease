@@ -248,6 +248,7 @@ public class PizzaFactory : MonoBehaviour
         }
 
         pizza.GetComponent<PizzaTrashBehaviour>().eventSystem = gameObject;
+        pizza.transform.localScale = pizza.transform.localScale * (order.Diameter / 16f);
 
         return pizza;
 
