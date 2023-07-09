@@ -79,7 +79,7 @@ public class CitationFactory : MonoBehaviour
                 citationQueue.Enqueue(newCitation);
             }
         } else if (pelp) {
-            SceneManager.LoadScene("BadEnding");
+            SceneManager.LoadScene("EndSceneBad");
         }
         else
         {

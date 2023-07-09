@@ -18,7 +18,11 @@ public class TypewriterEffect : MonoBehaviour
         for (int i = 0; i <= fullText.Length; i++) {
             currentText = fullText.Substring(0, i);
             this.GetComponent<TextMeshProUGUI>().text = currentText;
-            yield return new WaitForSeconds(delay);
+            if (i != 0 && fullText[i - 1] == '.') {
+                yield return new WaitForSeconds(delay + 0.5f);
+            } else {
+                yield return new WaitForSeconds(delay);
+            }
         }
     }
 }
