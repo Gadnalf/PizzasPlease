@@ -11,10 +11,21 @@ public class TimerController : MonoBehaviour
     int hours = 8;
     
     public GameObject clock;
+
+    private AudioManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(RunClock());
+        audioManager = GameObject.Find("EventSystem").GetComponent<AudioManager>();
+    }
+
+    // Private method accessible in the editor for testing
+    [ContextMenu("Set Time to hour 17")]
+    private void SetClockToOneHourLeft()
+    {
+        hours = 17;
     }
 
     IEnumerator RunClock() {
@@ -27,6 +38,11 @@ public class TimerController : MonoBehaviour
                 hours ++;
             }
             textComponent.text = System.String.Format("{0:00}:{1:00}", hours, mins);
+
+            if (hours == 17 && mins == 36)
+            {
+                audioManager.PlaySound(audioManager.timerTicking);
+            }
         }
 
         int currentScore = GetComponent<NewChallengeSpawner>().GetCurrentScore();
