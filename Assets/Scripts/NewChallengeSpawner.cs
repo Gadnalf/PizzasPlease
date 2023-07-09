@@ -17,6 +17,7 @@ public class NewChallengeSpawner : MonoBehaviour
     public int score;
     private int streak;
     public bool currentPizzaGood;
+    public string messedUpReason;
     void Start() {
         pizzaFactory = GetComponent<PizzaFactory>();
         citationFactory = GetComponent<CitationFactory>();
@@ -32,7 +33,8 @@ public class NewChallengeSpawner : MonoBehaviour
             // Do nothing;
         } else if (thrownAway) {
             streak = 0;
-            score -= 500;
+            score -= 300;
+            Debug.Log("Messed up reason: " + messedUpReason);
             ErroredJudgement(false);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
             streakText.GetComponent<TextMeshProUGUI>().text = "- 500";
@@ -44,7 +46,7 @@ public class NewChallengeSpawner : MonoBehaviour
             streakText.GetComponent<TextMeshProUGUI>().text = "+ " + (streak*100).ToString();
         } else {
             streak = 0;
-            score -= 500;
+            score -= 300;
             ErroredJudgement(true);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
             streakText.GetComponent<TextMeshProUGUI>().text = "- 500";
@@ -91,5 +93,6 @@ public class NewChallengeSpawner : MonoBehaviour
         instantiatedPizza = pizza.Pizza;
         instantiatedReceipt = pizza.Receipt;
         currentPizzaGood = pizza.CurrentPizzaGood;
+        messedUpReason = pizza.MessedUpReason;
     }
 }

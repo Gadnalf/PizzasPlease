@@ -24,6 +24,8 @@ public class PizzaFactory : MonoBehaviour
 
     public float pizzaSlideInSpeed = 0.3f;
 
+    private string messedUpReason = "";
+
     public struct PizzaOrder
     {
         public PizzaOrder(int diameter, int slices, bool[] leftIngredients, bool[] rightIngredients, bool wellDone)
@@ -43,14 +45,16 @@ public class PizzaFactory : MonoBehaviour
     }
 
     public struct GeneratedPizza {
-        public GeneratedPizza(GameObject pizza, GameObject receipt, bool good) {
+        public GeneratedPizza(GameObject pizza, GameObject receipt, bool good, string messedUpReason) {
             Pizza = pizza;
             Receipt = receipt;
             CurrentPizzaGood = good;
+            MessedUpReason = messedUpReason;
         }
         public GameObject Pizza { get; private set; }
         public GameObject Receipt { get; private set; }
         public bool CurrentPizzaGood { get; private set; }
+        public string MessedUpReason { get; private set; }
     }
 
     // ORDER THE PIZZA
@@ -132,29 +136,44 @@ public class PizzaFactory : MonoBehaviour
         {
             // Flip something
             int i = Random.Range(0, pizzaOrder.LeftIngredients.Length);
+            string word;
             if (Random.Range(0f, 1f) > 0.5)
             {
                 pizzaOrder.LeftIngredients[i] = !pizzaOrder.LeftIngredients[i];
+                if (pizzaOrder.LeftIngredients[i]) {
+                    word = "extraneous";
+                } else {
+                    word = "missing";
+                }
+                messedUpReason = "Ingredient " + ingredients[i].name.Replace('_', ' ') + " " + word + " on left half.";
             }
             else
             {
                 pizzaOrder.RightIngredients[i] = !pizzaOrder.RightIngredients[i];
-            }
+                if (pizzaOrder.RightIngredients[i]) {
+                    word = "extraneous";
+                } else {
+                    word = "missing";
+                }
+                messedUpReason = "Ingredient " + ingredients[i].name.Replace('_', ' ') + " " + word + " on right half.";            }
         }
         else if (rand < 0.6)
         {
             if (pizzaOrder.Slices == 0 || Random.Range(0f, 1f) > 0.5)
             {
                 pizzaOrder.Slices += 2;
+                messedUpReason = "Too many slices.";
             }
             else
             {
                 pizzaOrder.Slices -= 2;
+                messedUpReason = "Too few slices.";
             }
         }
         else if (rand < 0.75)
         {
             pizzaOrder.WellDone = !pizzaOrder.WellDone;
+            messedUpReason = "Pizza at incorrect doneness.";
         }
         else if (rand < 0.90)
         {
@@ -163,23 +182,28 @@ public class PizzaFactory : MonoBehaviour
                 if (Random.Range(0f, 1f) > 0.5)
                 {
                     pizzaOrder.LeftIngredients = pizzaOrder.RightIngredients;
+                    messedUpReason = "Left side of pizza matches right side.";
                 }
                 else
                 {
                     pizzaOrder.RightIngredients = pizzaOrder.LeftIngredients;
+                    messedUpReason = "Right side of pizza matches left side.";                   
                 }
             }
             else
             {
                 pizzaOrder.WellDone = !pizzaOrder.WellDone;
+                messedUpReason = "Pizza at incorrect doneness.";
             }
         }
         else
         {
             PizzaOrder newPizzaOrder = GenerateNewPizzaOrder();
+            messedUpReason = "This is someone else's pizza altogether!";
             if (newPizzaOrder.Equals(pizzaOrder))
             {
                 pizzaOrder.WellDone = !pizzaOrder.WellDone;
+                messedUpReason = "Pizza at incorrect doneness.";
             }
             return newPizzaOrder;
         }
@@ -219,7 +243,13 @@ public class PizzaFactory : MonoBehaviour
         instantiatedPizza.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(centerCameraPosition.x , 15), centerCameraPosition, pizzaSlideInSpeed);
         instantiatedReceipt.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(offsetCameraPositon.x, 15), offsetCameraPositon, pizzaSlideInSpeed, true);
 
-        return new GeneratedPizza(instantiatedPizza, instantiatedReceipt, currentPizzaGood);
+        GeneratedPizza pizza;
+        if (!currentPizzaGood) {
+            pizza = new GeneratedPizza(instantiatedPizza, instantiatedReceipt, currentPizzaGood, messedUpReason);
+        } else {
+            pizza = new GeneratedPizza(instantiatedPizza, instantiatedReceipt, currentPizzaGood, "");
+        }
+        return pizza;
     }
 
     public GameObject InstantiatePizza(PizzaOrder order)
@@ -289,7 +319,6 @@ public class PizzaFactory : MonoBehaviour
         void AddSauce(GameObject ingredient)
         {
             GameObject newIngredient = Instantiate(ingredient);
-            Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + origin);
             newIngredient.transform.position = origin;
             newIngredient.transform.parent = pizza.transform;
             newIngredient.GetComponent<Renderer>().sortingOrder = 1;
@@ -301,7 +330,6 @@ public class PizzaFactory : MonoBehaviour
         void AddCheese()
         {
             GameObject newIngredient = !left ? Instantiate(leftCheese) : Instantiate(rightCheese);
-            Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + origin);
             newIngredient.transform.position = origin;
             newIngredient.transform.parent = pizza.transform;
             newIngredient.GetComponent<Renderer>().sortingOrder = 2;
