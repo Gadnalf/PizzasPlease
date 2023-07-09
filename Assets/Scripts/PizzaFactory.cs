@@ -225,9 +225,9 @@ public class PizzaFactory : MonoBehaviour
         GameObject pizza = Instantiate(crust);
         Vector2 origin = pizza.transform.position;
 
-        // Handle left
+        // Handle right
         float angleOffset = 0.15f;
-        bool left = true;
+        bool left = false;
         for (int i = 0; i < order.LeftIngredients.Length; i++)
         {
             if (order.LeftIngredients[i])
@@ -236,15 +236,20 @@ public class PizzaFactory : MonoBehaviour
             }
         }
 
-        // Right
+        // left
         angleOffset = 0.15f;
-        left = false;
+        left = true;
         for (int i = 0; i < order.RightIngredients.Length; i++)
         {
             if (order.RightIngredients[i])
             {
                 AddToppingForIndex(i);
             }
+        }
+
+        if (order.WellDone)
+        {
+            pizza.GetComponent<Renderer>().material.SetColor("_Color", new Color(150f/256f, 75f/256f, 0));
         }
 
         pizza.GetComponent<PizzaTrashBehaviour>().eventSystem = gameObject;
@@ -275,11 +280,14 @@ public class PizzaFactory : MonoBehaviour
             newIngredient.transform.position = origin;
             newIngredient.transform.parent = pizza.transform;
             newIngredient.GetComponent<Renderer>().sortingOrder = 1;
+            if (!left) {
+                newIngredient.transform.Rotate(new Vector3(0, 0, 180));
+            }
         }
 
         void AddCheese()
         {
-            GameObject newIngredient = left? Instantiate(leftCheese) : Instantiate(rightCheese);
+            GameObject newIngredient = !left ? Instantiate(leftCheese) : Instantiate(rightCheese);
             Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + origin);
             newIngredient.transform.position = origin;
             newIngredient.transform.parent = pizza.transform;
@@ -387,6 +395,9 @@ public class PizzaFactory : MonoBehaviour
         }
 
         foreach (string ingredient in ingredientList.Keys) {
+            if (ingredientList[ingredient] == 0) {
+                continue;
+            }
             string processedIngredient = ingredient.Replace('_', ' ');
             output += "- ";
             switch(ingredientList[ingredient]) {
@@ -401,6 +412,10 @@ public class PizzaFactory : MonoBehaviour
                     break;
             }
             output += "\n";
+        }
+
+        if (order.WellDone) {
+            output += "Cooked well done\n";
         }
 
         return output;
