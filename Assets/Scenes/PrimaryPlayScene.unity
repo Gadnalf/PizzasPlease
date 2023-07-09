@@ -257,10 +257,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Citation
       objectReference: {fileID: 0}
-    - target: {fileID: 5986025735295887960, guid: 3dc39b42741dcdd439b1e4d858b7971c, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -351,7 +347,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &110073487
 RectTransform:
@@ -461,7 +457,6 @@ GameObject:
   - component: {fileID: 269176338}
   - component: {fileID: 269176337}
   - component: {fileID: 269176335}
-  - component: {fileID: 269176339}
   - component: {fileID: 269176340}
   m_Layer: 0
   m_Name: Instructions
@@ -524,7 +519,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 499c2ff2d665b5644acf2170989cdc3b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -552,18 +547,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &269176339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269176334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbbd906f11226c46a7cd4bebd797257, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!60 &269176340
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -870,8 +853,8 @@ MonoBehaviour:
     Order of ingredients
 
 
-    Toss the pizzas made correctly, and give 1 star reviews
-    for any pizzas they screwed up. '
+    Give 1 star reviews for any pizzas they screwed up,
+    and toss everything. It''s probably horrible anyway.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -1118,7 +1101,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -361, y: 228}
+  m_AnchoredPosition: {x: -477.0498, y: 316}
   m_SizeDelta: {x: 24.05, y: 9.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1158818088
@@ -1143,7 +1126,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Score:
 
-    $0'
+    0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -1206,7 +1189,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0.7011452, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.26848602, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1294,7 +1277,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: a0d02b2aecffe7c46a74269a670809c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1314,7 +1297,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190584386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.93, y: -1.88, z: -2}
+  m_LocalPosition: {x: 7.09, y: 1.93, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1384,18 +1367,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 444657942351958730, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
   m_PrefabInstance: {fileID: 6272847170963473644}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1191831815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1191831807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbbd906f11226c46a7cd4bebd797257, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!60 &1191831816
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1843,7 +1814,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460658588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21, y: -4.61, z: 10}
+  m_LocalPosition: {x: 6.34, y: -4.65, z: 10}
   m_LocalScale: {x: 0.8015971, y: 0.5420384, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1930,7 +1901,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -367.08, y: 75}
+  m_AnchoredPosition: {x: -528, y: 160}
   m_SizeDelta: {x: 36.21, y: 9.587}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1548818149
@@ -2131,7 +2102,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!1 &1769082591 stripped
 GameObject:
@@ -2398,8 +2369,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000076294, y: -133.21}
-  m_SizeDelta: {x: 202.49, y: 40.89}
+  m_AnchoredPosition: {x: -0.000014305, y: -129}
+  m_SizeDelta: {x: 193, y: 38.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2006175341
 MonoBehaviour:
@@ -2477,8 +2448,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: ccf3f8202f339a440a4cc2a0f7200512, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2521,11 +2492,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2749501542177461705, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.01
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: 2749501542177461705, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.01
+      value: 3.02
       objectReference: {fileID: 0}
     - target: {fileID: 2749501542177461705, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2571,9 +2542,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 444657942351958730, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1191831815}
     - targetCorrespondingSourceObject: {fileID: 444657942351958730, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1191831816}

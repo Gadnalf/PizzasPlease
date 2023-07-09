@@ -22,7 +22,7 @@ public class PizzaTrashBehaviour : MonoBehaviour
 
                 pizza.GetComponent<DraggableObjectBehaviour>().animateSlide(
                                         pizza.transform.position,
-                                        new Vector2(0, pizza.transform.position.y - 15),
+                                        new Vector2(pizza.transform.position.x, pizza.transform.position.y - 15),
                                         pizzaTrashSpeed);
 
                 // Delay the onGoodReview call to give time for the pizza slide out animation

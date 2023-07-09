@@ -46,27 +46,25 @@ public class NewChallengeSpawner : MonoBehaviour
             Debug.Log("Messed up reason: " + messedUpReason);
             ErroredJudgement(false);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
-            streakText.GetComponent<TextMeshProUGUI>().text = "- 500";
+            streakText.GetComponent<TextMeshProUGUI>().text = "- 300";
             citationFactory.RegisterCitation(false);
-        }
-        else if (!currentPizzaGood)
-        {
+            StartCoroutine(ShowStreak());
+        } else if (!currentPizzaGood) {
             streak = Math.Min(streak + 1, 3);
             score += 100 * streak;
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.green;
-              streakText.GetComponent<TextMeshProUGUI>().text = "+ " + (streak * 100).ToString();
-        }
-        else
-        {
+            streakText.GetComponent<TextMeshProUGUI>().text = "+ " + (streak*100).ToString();
+            StartCoroutine(ShowStreak());
+        } else {
             streak = 0;
             score -= 300;
             ErroredJudgement(true);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
-            streakText.GetComponent<TextMeshProUGUI>().text = "- 500";
+            streakText.GetComponent<TextMeshProUGUI>().text = "- 300";
             citationFactory.RegisterCitation(true);
+            StartCoroutine(ShowStreak());
         }
         scoreText.GetComponent<TextMeshProUGUI>().text = "Score: $" + score.ToString();
-        StartCoroutine(ShowStreak());
     }
 
     public void onTrashPizza() {
