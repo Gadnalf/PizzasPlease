@@ -26,6 +26,7 @@ public class NewChallengeSpawner : MonoBehaviour
     private AudioManager audioManager;
 
     void Start() {
+        audioManager = GameObject.Find("EventSystem").GetComponent<AudioManager>();
         pizzaFactory = GetComponent<PizzaFactory>();
         citationFactory = GetComponent<CitationFactory>();
 
@@ -34,7 +35,6 @@ public class NewChallengeSpawner : MonoBehaviour
             alert.SetActive(false);
         }
 
-        audioManager = GameObject.Find("EventSystem").GetComponent<AudioManager>();
     }
 
     public void Review(bool thrownAway){
@@ -121,6 +121,8 @@ public class NewChallengeSpawner : MonoBehaviour
     }
 
     public void OrderNewPizza() {
+        audioManager.PlaySound(audioManager.bellDing);
+
         PizzaFactory.PizzaOrder order = pizzaFactory.GenerateNewPizzaOrder();
         PizzaFactory.GeneratedPizza pizza = pizzaFactory.CreatePizza(order);
 

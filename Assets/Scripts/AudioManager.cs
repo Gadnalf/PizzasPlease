@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource audioPlayer;
     public AudioClip citationSound;
     public AudioClip trashSound;
+    public AudioClip bellDing;
 
     /// <summary>
     /// Plays the provided AudioClip on the audioPlayer
