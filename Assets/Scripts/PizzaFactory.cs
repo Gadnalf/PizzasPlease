@@ -126,6 +126,62 @@ public class PizzaFactory : MonoBehaviour
     // MESS UP THE PIZZA
     public PizzaOrder MessUpPizzaOrder(PizzaOrder pizzaOrder)
     {
+        float rand = Random.Range(0f, 1f);
+        if (rand < 0.3)
+        {
+            // Flip something
+            int i = Random.Range(0, pizzaOrder.LeftIngredients.Length);
+            if (Random.Range(0f, 1f) > 0.5)
+            {
+                pizzaOrder.LeftIngredients[i] = !pizzaOrder.LeftIngredients[i];
+            }
+            else
+            {
+                pizzaOrder.RightIngredients[i] = !pizzaOrder.RightIngredients[i];
+            }
+        }
+        else if (rand < 0.6)
+        {
+            if (Random.Range(0f, 1f) > 0.5)
+            {
+                pizzaOrder.Slices += 2;
+            }
+            else
+            {
+                pizzaOrder.Slices -= 2;
+            }
+        }
+        else if (rand < 0.75)
+        {
+            pizzaOrder.WellDone = !pizzaOrder.WellDone;
+        }
+        else if (rand < 0.90)
+        {
+            if (pizzaOrder.LeftIngredients != pizzaOrder.RightIngredients)
+            {
+                if (Random.Range(0f, 1f) > 0.5)
+                {
+                    pizzaOrder.LeftIngredients = pizzaOrder.RightIngredients;
+                }
+                else
+                {
+                    pizzaOrder.RightIngredients = pizzaOrder.LeftIngredients;
+                }
+            }
+            else
+            {
+                pizzaOrder.WellDone = !pizzaOrder.WellDone;
+            }
+        }
+        else
+        {
+            PizzaOrder newPizzaOrder = GenerateNewPizzaOrder();
+            if (newPizzaOrder.Equals(pizzaOrder))
+            {
+                pizzaOrder.WellDone = !pizzaOrder.WellDone;
+            }
+            return newPizzaOrder;
+        }
         return pizzaOrder;
     }
 
@@ -149,8 +205,14 @@ public class PizzaFactory : MonoBehaviour
         gameText.GetComponent<TextMeshProUGUI>().text = GenerateReceiptStringFromPizzaOrder(pizzaOrder);
 
         bool currentPizzaGood = Random.Range(0, 2) != 0;
-
-        instantiatedPizza = InstantiatePizza(pizzaOrder);
+        if (!currentPizzaGood)
+        {
+            instantiatedPizza = InstantiatePizza(MessUpPizzaOrder(pizzaOrder));
+        }
+        else
+        {
+            instantiatedPizza = InstantiatePizza(pizzaOrder);
+        }
 
         instantiatedPizza.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(centerCameraPosition.x , 15), centerCameraPosition, pizzaSlideInSpeed);
         instantiatedReceipt.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(offsetCameraPositon.x, 15), offsetCameraPositon, pizzaSlideInSpeed);
@@ -163,9 +225,9 @@ public class PizzaFactory : MonoBehaviour
         GameObject pizza = Instantiate(crust);
         Vector2 origin = pizza.transform.position;
 
-        // Handle left
+        // Handle right
         float angleOffset = 0.15f;
-        bool left = true;
+        bool left = false;
         for (int i = 0; i < order.LeftIngredients.Length; i++)
         {
             if (order.LeftIngredients[i])
@@ -174,9 +236,9 @@ public class PizzaFactory : MonoBehaviour
             }
         }
 
-        // Right
+        // left
         angleOffset = 0.15f;
-        left = false;
+        left = true;
         for (int i = 0; i < order.RightIngredients.Length; i++)
         {
             if (order.RightIngredients[i])
@@ -185,7 +247,13 @@ public class PizzaFactory : MonoBehaviour
             }
         }
 
+        if (order.WellDone)
+        {
+            pizza.GetComponent<Renderer>().material.SetColor("_Color", new Color(150f/256f, 75f/256f, 0));
+        }
+
         pizza.GetComponent<PizzaTrashBehaviour>().eventSystem = gameObject;
+        pizza.transform.localScale = pizza.transform.localScale * (order.Diameter / 16f);
 
         return pizza;
 
@@ -212,11 +280,14 @@ public class PizzaFactory : MonoBehaviour
             newIngredient.transform.position = origin;
             newIngredient.transform.parent = pizza.transform;
             newIngredient.GetComponent<Renderer>().sortingOrder = 1;
+            if (!left) {
+                newIngredient.transform.Rotate(new Vector3(0, 0, 180));
+            }
         }
 
         void AddCheese()
         {
-            GameObject newIngredient = left? Instantiate(leftCheese) : Instantiate(rightCheese);
+            GameObject newIngredient = !left ? Instantiate(leftCheese) : Instantiate(rightCheese);
             Debug.Log("Creating new ingredient: " + newIngredient + "at pos: " + origin);
             newIngredient.transform.position = origin;
             newIngredient.transform.parent = pizza.transform;
@@ -324,6 +395,9 @@ public class PizzaFactory : MonoBehaviour
         }
 
         foreach (string ingredient in ingredientList.Keys) {
+            if (ingredientList[ingredient] == 0) {
+                continue;
+            }
             string processedIngredient = ingredient.Replace('_', ' ');
             output += "- ";
             switch(ingredientList[ingredient]) {
@@ -338,6 +412,10 @@ public class PizzaFactory : MonoBehaviour
                     break;
             }
             output += "\n";
+        }
+
+        if (order.WellDone) {
+            output += "Cooked well done\n";
         }
 
         return output;
