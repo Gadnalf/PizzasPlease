@@ -8,6 +8,11 @@ public class ReceiptTrashBehaviour : MonoBehaviour
     public bool shouldDrop;
     public float pizzaTrashSpeed = 0.9f;
 
+    private void Start()
+    {
+        eventSystem = GameObject.Find("EventSystem");
+    }
+
     void Update() {
         if (Input.GetMouseButtonUp(0) && shouldDrop) {
             if (eventSystem.GetComponents<NewChallengeSpawner>().Length != 0) {

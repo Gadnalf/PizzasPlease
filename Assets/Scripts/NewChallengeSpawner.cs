@@ -95,6 +95,8 @@ public class NewChallengeSpawner : MonoBehaviour
 
     public void OnReviewSubmitted() {
         reviewed = false;
+        receiptTrashed = false;
+        receiptTrashed = false;
         Destroy(instantiatedPizza);
         Destroy(instantiatedReceipt);
         OrderNewPizza();
@@ -120,9 +122,7 @@ public class NewChallengeSpawner : MonoBehaviour
         PizzaFactory.GeneratedPizza pizza = pizzaFactory.CreatePizza(order);
 
         instantiatedPizza = pizza.Pizza;
-        instantiatedPizza.GetComponent<PizzaTrashBehaviour>().eventSystem = gameObject;
         instantiatedReceipt = pizza.Receipt;
-        instantiatedReceipt.GetComponent<ReceiptTrashBehaviour>().eventSystem = gameObject;
         currentPizzaGood = pizza.CurrentPizzaGood;
         messedUpReason = pizza.MessedUpReason;
     }
