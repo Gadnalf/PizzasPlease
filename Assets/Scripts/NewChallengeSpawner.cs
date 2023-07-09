@@ -77,9 +77,6 @@ public class NewChallengeSpawner : MonoBehaviour
             Review(true);
         }
         pizzaTrashed = true;
-
-        audioManager.PlaySound(audioManager.trashSound);
-
         if (receiptTrashed)
         {
             SpawnNewChallenge();
@@ -89,9 +86,6 @@ public class NewChallengeSpawner : MonoBehaviour
     public void onTrashReceipt()
     {
         receiptTrashed = true;
-
-        audioManager.PlaySound(audioManager.trashSound);
-
         if (pizzaTrashed)
         {
             SpawnNewChallenge();

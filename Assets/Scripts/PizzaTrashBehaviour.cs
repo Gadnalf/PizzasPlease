@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PizzaTrashBehaviour : MonoBehaviour
@@ -8,9 +9,12 @@ public class PizzaTrashBehaviour : MonoBehaviour
     public bool shouldDrop;
     public float pizzaTrashSpeed = 0.9f;
 
+    private AudioManager audioManager;
+
     private void Start()
     {
         eventSystem = GameObject.Find("EventSystem");
+        audioManager = eventSystem.GetComponent<AudioManager>();
     }
 
     void Update() {
@@ -25,9 +29,11 @@ public class PizzaTrashBehaviour : MonoBehaviour
                                         new Vector2(pizza.transform.position.x, pizza.transform.position.y - 15),
                                         pizzaTrashSpeed);
 
+                audioManager.PlaySound(audioManager.trashSound);
+
                 // Delay the onGoodReview call to give time for the pizza slide out animation
                 // before the pizza gameobject is destroyed
-                spawner.Invoke("onTrashPizza", 0.5f);
+                spawner.Invoke("onTrashPizza", 1.0f);
             }
         }
     }

@@ -8,9 +8,12 @@ public class ReceiptTrashBehaviour : MonoBehaviour
     public bool shouldDrop;
     public float pizzaTrashSpeed = 0.9f;
 
+    private AudioManager audioManager;
+
     private void Start()
     {
         eventSystem = GameObject.Find("EventSystem");
+        audioManager = eventSystem.GetComponent<AudioManager>();
     }
 
     void Update() {
@@ -25,9 +28,11 @@ public class ReceiptTrashBehaviour : MonoBehaviour
                                         new Vector2(receipt.transform.position.x, receipt.transform.position.y - 15),
                                         pizzaTrashSpeed);
 
+                audioManager.PlaySound(audioManager.trashSound);
+
                 // Delay the onGoodReview call to give time for the pizza slide out animation
                 // before the pizza gameobject is destroyed
-                spawner.Invoke("onTrashReceipt", 2.0f);
+                spawner.Invoke("onTrashReceipt", 1.0f);
             }
         }
     }
