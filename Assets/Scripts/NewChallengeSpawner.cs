@@ -62,13 +62,10 @@ public class NewChallengeSpawner : MonoBehaviour
             streakText.GetComponent<TextMeshProUGUI>().text = "+ " + (streak*10).ToString();
             StartCoroutine(ShowStreak());
         } else {
-            score += 10 * streak;
+            score += 10 * Math.Max(streak, 1);
             streak = 0;
             ErroredJudgement(true);
-            streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
-            streakText.GetComponent<TextMeshProUGUI>().text = "- 30";
             citationFactory.RegisterCitation(true);
-            StartCoroutine(ShowStreak());
         }
         scoreText.GetComponent<TextMeshProUGUI>().text = "Score: $" + score.ToString();
     }

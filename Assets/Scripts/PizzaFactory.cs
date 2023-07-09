@@ -90,7 +90,7 @@ public class PizzaFactory : MonoBehaviour
         int numLeftIngredients = Random.Range(0, ingredients.Count);
         for (int i = 0; i < numLeftIngredients; i++)
         {
-            leftIngredients[Random.Range(1 + sauces.Count, ingredients.Count)] = true;
+            leftIngredients[Random.Range(1 + sauces.Count, 1 + sauces.Count + ingredients.Count)] = true;
         }
         Debug.Log("leftIngredients" + string.Join(", ", leftIngredients.ToArray()));
 
@@ -109,7 +109,7 @@ public class PizzaFactory : MonoBehaviour
         int numRightIngredients = Random.Range(0, ingredients.Count);
         for (int i = 0; i < numRightIngredients; i++)
         {
-            rightIngredients[Random.Range(1 + sauces.Count, ingredients.Count)] = true;
+            rightIngredients[Random.Range(1 + sauces.Count,  1 + sauces.Count+ ingredients.Count)] = true;
         }
         Debug.Log("rightIngredients" + string.Join(", ", rightIngredients.ToArray()));
 
