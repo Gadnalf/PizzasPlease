@@ -7,7 +7,6 @@ public class CitationFactory : MonoBehaviour
 {
     public GameObject citationPrefab;
 
-    public GameObject sortingLayer;
     public float printSpeed = 1f;
 
     private GameObject currentCitation;
@@ -16,7 +15,7 @@ public class CitationFactory : MonoBehaviour
     Queue<GameObject> citationQueue = new Queue<GameObject>();
 
     private int printingProgress;
-    private int currentLayerOffset = 0;
+    private int currentLayerOffset = 101;
     int citationLevel = 0;
 
     string pelpHeader = "PELP CUSTOMER SERVICE TICKET\n" +
@@ -68,8 +67,8 @@ public class CitationFactory : MonoBehaviour
     {
         GameObject newCitation = Instantiate(citationPrefab);
         GameObject gameText = newCitation.transform.GetChild(0).GetChild(0).gameObject;
-        newCitation.transform.parent = sortingLayer.transform;
         newCitation.GetComponent<Renderer>().sortingOrder = currentLayerOffset;
+        newCitation.transform.GetChild(0).GetComponent<Canvas>().sortingOrder = currentLayerOffset;
         currentLayerOffset++;
         if (pelp && citationLevel < 4) {
             gameText.GetComponent<TextMeshProUGUI>().text = pelpHeader + pelpWarnings[citationLevel];
