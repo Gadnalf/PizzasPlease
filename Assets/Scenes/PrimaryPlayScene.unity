@@ -1941,6 +1941,7 @@ MonoBehaviour:
   citationSound: {fileID: 8300000, guid: e27379cfcd1822d4b873132a11ece0e7, type: 3}
   trashSound: {fileID: 8300000, guid: 8d5c4419b68f784499dfd24779cbc7ad, type: 3}
   bellDing: {fileID: 8300000, guid: 24b98b72a9016da47a0435281623d419, type: 3}
+  timerTicking: {fileID: 8300000, guid: e50cb3fed931d7b40ae6da44a1381e23, type: 3}
 --- !u!1 &1460658588
 GameObject:
   m_ObjectHideFlags: 0
