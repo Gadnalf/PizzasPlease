@@ -137,6 +137,21 @@ public class PizzaFactory : MonoBehaviour
             // Flip something
             int i = Random.Range(0, pizzaOrder.LeftIngredients.Length);
             string word;
+
+            string name;
+            if (i == 0)
+            {
+                name = "cheese";
+            }
+            else if (i < sauces.Count + 1)
+            {
+                name = sauces[i-1].name;
+            }
+            else
+            {
+                name = ingredients[i - sauces.Count - 1].name;
+            }
+
             if (Random.Range(0f, 1f) > 0.5)
             {
                 pizzaOrder.LeftIngredients[i] = !pizzaOrder.LeftIngredients[i];
@@ -145,7 +160,7 @@ public class PizzaFactory : MonoBehaviour
                 } else {
                     word = "missing";
                 }
-                messedUpReason = "Ingredient " + ingredients[i].name.Replace('_', ' ') + " " + word + " on left half.";
+                messedUpReason = "Ingredient " + name.Replace('_', ' ') + " " + word + " on left half.";
             }
             else
             {
@@ -155,7 +170,7 @@ public class PizzaFactory : MonoBehaviour
                 } else {
                     word = "missing";
                 }
-                messedUpReason = "Ingredient " + ingredients[i].name.Replace('_', ' ') + " " + word + " on right half.";            }
+                messedUpReason = "Ingredient " + name.Replace('_', ' ') + " " + word + " on right half.";            }
         }
         else if (rand < 0.6)
         {
@@ -280,7 +295,8 @@ public class PizzaFactory : MonoBehaviour
         }
 
         if (order.Slices != 0) {
-            AddSlices(slices[order.Slices/2 - 1]);
+            Debug.Log("Slices: " + slices);
+            AddSlices(slices[(order.Slices/2) - 1]);
         }
 
         if (order.WellDone)
