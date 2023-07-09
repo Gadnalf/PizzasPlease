@@ -42,25 +42,25 @@ public class NewChallengeSpawner : MonoBehaviour
         else if (thrownAway)
         {
             streak = 0;
-            score -= 300;
+            score -= 30;
             Debug.Log("Messed up reason: " + messedUpReason);
             ErroredJudgement(false);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
-            streakText.GetComponent<TextMeshProUGUI>().text = "- 300";
+            streakText.GetComponent<TextMeshProUGUI>().text = "- 30";
             citationFactory.RegisterCitation(false);
             StartCoroutine(ShowStreak());
         } else if (!currentPizzaGood) {
             streak = Math.Min(streak + 1, 3);
-            score += 100 * streak;
+            score += 10 * streak;
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.green;
-            streakText.GetComponent<TextMeshProUGUI>().text = "+ " + (streak*100).ToString();
+            streakText.GetComponent<TextMeshProUGUI>().text = "+ " + (streak*10).ToString();
             StartCoroutine(ShowStreak());
         } else {
             streak = 0;
-            score -= 300;
+            score -= 30;
             ErroredJudgement(true);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
-            streakText.GetComponent<TextMeshProUGUI>().text = "- 300";
+            streakText.GetComponent<TextMeshProUGUI>().text = "- 30";
             citationFactory.RegisterCitation(true);
             StartCoroutine(ShowStreak());
         }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CitationFactory : MonoBehaviour
 {
@@ -65,6 +66,8 @@ public class CitationFactory : MonoBehaviour
             {
                 citationQueue.Enqueue(newCitation);
             }
+        } else if (zelp) {
+            SceneManager.LoadScene("BadEnding");
         }
     }
 

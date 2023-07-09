@@ -257,7 +257,7 @@ public class PizzaFactory : MonoBehaviour
 
         gameText.GetComponent<TextMeshProUGUI>().text = GenerateReceiptStringFromPizzaOrder(pizzaOrder);
 
-        bool currentPizzaGood = Random.Range(0, 2) != 0;
+        bool currentPizzaGood = Random.Range(0f, 1f) > 0.4f;
         if (!currentPizzaGood)
         {
             instantiatedPizza = InstantiatePizza(MessUpPizzaOrder(pizzaOrder));
