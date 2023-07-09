@@ -8,6 +8,7 @@ public class DraggableObjectBehaviour : MonoBehaviour
     Vector3 selectionOffset = new Vector3(0f, 0f, 5f);
 
     private bool sliding;
+    private bool spherical;
     private float speed;
     private Vector2 start;
     private Vector2 end;
@@ -18,12 +19,24 @@ public class DraggableObjectBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    /// <summary>
+    /// Animate the slide with linear interpolation
+    /// </summary>
     public void animateSlide(Vector2 start, Vector2 end, float speed)
+    {
+        animateSlide(start, end, speed, false);
+    }
+
+    /// <summary>
+    /// Animate the slide with spherical interpolation
+    /// </summary>
+    public void animateSlide(Vector2 start, Vector2 end, float speed, bool spherical)
     {
         transform.position = start;
         this.start = start;
         this.end = end;
         this.speed = speed;
+        this.spherical = spherical;  // Spherical interpolation vs linear interpolation
         sliding = true;
         draggable = false;
     }
@@ -68,7 +81,14 @@ public class DraggableObjectBehaviour : MonoBehaviour
     {
         if (sliding)
         {
-            rb.MovePosition(Vector3.Slerp(transform.position, end, speed * Time.fixedDeltaTime));
+            if (spherical)
+            {
+                rb.MovePosition(Vector3.Slerp(transform.position, end, speed * Time.fixedDeltaTime));
+            }
+            else
+            {    
+                rb.MovePosition(Vector3.Lerp(transform.position, end, speed * Time.fixedDeltaTime));
+            }
             if ((end - (Vector2)transform.position).magnitude < 0.5f)
             {
                 sliding = false;
