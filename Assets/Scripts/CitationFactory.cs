@@ -27,7 +27,7 @@ public class CitationFactory : MonoBehaviour
     {
         "Your account has been flagged on " +
         "suspicion of fabricating negative " +
-        "Zelp reviews.\n\n" +
+        "Pelp reviews.\n\n" +
         "I'm sure it's just " +
         "a system error, but I wanted to check " +
         "in to see if everything is okay?",
