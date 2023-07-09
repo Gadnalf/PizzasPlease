@@ -250,7 +250,7 @@ public class PizzaFactory : MonoBehaviour
         }
 
         if (order.Slices != 0) {
-            AddSlices(slices[0]);
+            AddSlices(slices[order.Slices/2 - 1]);
         }
 
         if (order.WellDone)
