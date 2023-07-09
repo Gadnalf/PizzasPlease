@@ -27,7 +27,7 @@ public class PizzaTrashBehaviour : MonoBehaviour
 
                 // Delay the onGoodReview call to give time for the pizza slide out animation
                 // before the pizza gameobject is destroyed
-                spawner.Invoke("onTrashPizza", 1.0f);
+                spawner.Invoke("onTrashPizza", 0.5f);
             }
         }
     }

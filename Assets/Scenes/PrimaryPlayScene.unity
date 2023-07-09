@@ -1895,8 +1895,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   citationPrefab: {fileID: 78646905}
-  audioPlayer: {fileID: 1881465880}
-  citationSound: {fileID: 8300000, guid: e27379cfcd1822d4b873132a11ece0e7, type: 3}
   printSpeed: 1.8
 --- !u!114 &1429614068
 MonoBehaviour:
@@ -1911,6 +1909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioPlayer: {fileID: 1881465880}
+  citationSound: {fileID: 8300000, guid: e27379cfcd1822d4b873132a11ece0e7, type: 3}
   trashSound: {fileID: 8300000, guid: 8d5c4419b68f784499dfd24779cbc7ad, type: 3}
 --- !u!1 &1460658588
 GameObject:

@@ -5,6 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public AudioSource audioPlayer;
+    public AudioClip citationSound;
     public AudioClip trashSound;
 
     /// <summary>

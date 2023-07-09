@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 public class CitationFactory : MonoBehaviour
 {
     public GameObject citationPrefab;
-    public AudioSource audioPlayer;
-    public AudioClip citationSound;
     public float printSpeed = 1f;
 
     private GameObject currentCitation;
+    private AudioManager audioManager;
 
     Queue<GameObject> citationQueue = new Queue<GameObject>();
 
@@ -58,6 +57,11 @@ public class CitationFactory : MonoBehaviour
         "---------------------\n" +
         "Detail: ";
 
+    private void Start()
+    {
+        audioManager = GameObject.Find("EventSystem").GetComponent<AudioManager>();
+    }
+
     public void RegisterCitation(bool pelp, string message = "")
     {
         if (pelp && citationLevel < 4)
@@ -101,7 +105,7 @@ public class CitationFactory : MonoBehaviour
                 currentCitation.GetComponent<DraggableObjectBehaviour>().draggable = false;
                 if (printingProgress < 3)
                 {
-                    audioPlayer.PlayOneShot(citationSound);
+                    audioManager.PlaySound(audioManager.citationSound, 0.5f);
                     currentCitation.GetComponent<DraggableObjectBehaviour>().animateSlide(currentCitation.transform.position,
                     currentCitation.transform.position + Vector3.up * 2.5f,
                     printSpeed);
