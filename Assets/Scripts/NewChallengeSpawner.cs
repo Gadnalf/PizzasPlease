@@ -23,6 +23,8 @@ public class NewChallengeSpawner : MonoBehaviour
     public bool pizzaTrashed;
     public bool receiptTrashed;
 
+    private AudioManager audioManager;
+
     void Start() {
         pizzaFactory = GetComponent<PizzaFactory>();
         citationFactory = GetComponent<CitationFactory>();
@@ -31,6 +33,8 @@ public class NewChallengeSpawner : MonoBehaviour
         if (alert) {
             alert.SetActive(false);
         }
+
+        audioManager = GameObject.Find("EventSystem").GetComponent<AudioManager>();
     }
 
     public void Review(bool thrownAway){
@@ -73,6 +77,9 @@ public class NewChallengeSpawner : MonoBehaviour
             Review(true);
         }
         pizzaTrashed = true;
+
+        audioManager.PlaySound(audioManager.trashSound);
+
         if (receiptTrashed)
         {
             SpawnNewChallenge();
@@ -82,6 +89,9 @@ public class NewChallengeSpawner : MonoBehaviour
     public void onTrashReceipt()
     {
         receiptTrashed = true;
+
+        audioManager.PlaySound(audioManager.trashSound);
+
         if (pizzaTrashed)
         {
             SpawnNewChallenge();

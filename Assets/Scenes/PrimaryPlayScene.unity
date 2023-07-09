@@ -671,6 +671,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3884734031403915629, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: trashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8d5c4419b68f784499dfd24779cbc7ad, type: 3}
+    - target: {fileID: 3884734031403915629, guid: df1c23880d2167647980e033dbfbe805, type: 3}
+      propertyPath: audioPlayer
+      value: 
+      objectReference: {fileID: 1881465880}
     m_RemovedComponents:
     - {fileID: 0}
     m_RemovedGameObjects: []
@@ -1584,6 +1592,7 @@ GameObject:
   - component: {fileID: 1429614065}
   - component: {fileID: 1429614066}
   - component: {fileID: 1429614067}
+  - component: {fileID: 1429614068}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1734,6 +1743,20 @@ MonoBehaviour:
   audioPlayer: {fileID: 1881465880}
   citationSound: {fileID: 8300000, guid: e27379cfcd1822d4b873132a11ece0e7, type: 3}
   printSpeed: 1.8
+--- !u!114 &1429614068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429614060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f21a749c8e3cb646be078b289b59f8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioPlayer: {fileID: 1881465880}
+  trashSound: {fileID: 8300000, guid: 8d5c4419b68f784499dfd24779cbc7ad, type: 3}
 --- !u!1 &1460658588
 GameObject:
   m_ObjectHideFlags: 0
