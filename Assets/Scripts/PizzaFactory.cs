@@ -185,6 +185,11 @@ public class PizzaFactory : MonoBehaviour
             }
         }
 
+        if (order.WellDone)
+        {
+            pizza.GetComponent<Renderer>().material.SetColor("_Color", new Color(150f/256f, 75f/256f, 0));
+        }
+
         pizza.GetComponent<PizzaTrashBehaviour>().eventSystem = gameObject;
 
         return pizza;
@@ -344,6 +349,10 @@ public class PizzaFactory : MonoBehaviour
                     break;
             }
             output += "\n";
+        }
+
+        if (order.WellDone) {
+            output += "Cooked well done\n";
         }
 
         return output;
