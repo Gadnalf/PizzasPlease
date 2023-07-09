@@ -68,12 +68,8 @@ public class PizzaFactory : MonoBehaviour
 
 
         // set diameter
-        // int personal = 10;
-        int small = 12;
-        int medium = 14;
-        int large = 16; 
-        int[] sizes = {small, medium, large};
-        diameter = sizes[Random.Range(0,2)];
+        int[] sizes = {8, 10, 12, 14, 16};
+        diameter = sizes[Random.Range(0, sizes.Length)];
         Debug.Log("diameter" + diameter);
 
         // set number of slices
@@ -257,7 +253,7 @@ public class PizzaFactory : MonoBehaviour
 
         gameText.GetComponent<TextMeshProUGUI>().text = GenerateReceiptStringFromPizzaOrder(pizzaOrder);
 
-        bool currentPizzaGood = Random.Range(0, 2) != 0;
+        bool currentPizzaGood = Random.Range(0f, 1f) > 0.4f;
         if (!currentPizzaGood)
         {
             instantiatedPizza = InstantiatePizza(MessUpPizzaOrder(pizzaOrder));
@@ -373,7 +369,7 @@ public class PizzaFactory : MonoBehaviour
         void AddIngredientsRadially(GameObject ingredient, float angleOffset)
         {
             float angle = angleOffset;
-            for (float radius = ingredientOffset; radius < (order.Diameter - crustOffset); radius += ingredientOffset)
+            for (float radius = ingredientOffset; radius < (14 - crustOffset); radius += ingredientOffset)
             {
                 //Debug.Log("Current circumference: " + 2 * 3.14f * radius);
                 float ingredientAngle = 360/Mathf.RoundToInt(2 * 3.14f * radius / radialIngredientOffset);
@@ -463,11 +459,30 @@ public class PizzaFactory : MonoBehaviour
             return System.String.Format(options[index], ingredient);
         }
 
+        string GenerateNoneOption(string ingredient) {
+            string[] options = {
+                "no {0}",
+                "allergic to {0}",
+                "no {0} on left side",
+                "no {0} on right side",
+                "not {0}",
+                "do not use {0}"
+            };
+            int index = Random.Range(0, options.Length);
+            return System.String.Format(options[index], ingredient);
+        }
+
+        bool addedNonOption = false;
         foreach (string ingredient in ingredientList.Keys) {
+            string processedIngredient = ingredient.Replace('_', ' ');
+
             if (ingredientList[ingredient] == 0) {
+                if (!addedNonOption) {
+                    addedNonOption = true;
+                    output += "- " + GenerateNoneOption(processedIngredient) + "\n";
+                }
                 continue;
             }
-            string processedIngredient = ingredient.Replace('_', ' ');
             output += "- ";
             switch(ingredientList[ingredient]) {
                 case 1:
@@ -478,6 +493,12 @@ public class PizzaFactory : MonoBehaviour
                     break;
                 case 3:
                     output += GenerateWholeOption(processedIngredient);
+                    break;
+                case 0:
+                    if (!addedNonOption && Random.Range(0f, 1f) > 0.6) {
+                        addedNonOption = true;
+                        output += GenerateNoneOption(processedIngredient);
+                    }
                     break;
             }
             output += "\n";

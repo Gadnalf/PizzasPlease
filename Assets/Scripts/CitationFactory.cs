@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CitationFactory : MonoBehaviour
 {
@@ -16,14 +17,14 @@ public class CitationFactory : MonoBehaviour
     private int printingProgress;
     int citationLevel = 0;
 
-    string header = "PELP CUSTOMER SERVICE TICKET\n" +
+    string pelpHeader = "PELP CUSTOMER SERVICE TICKET\n" +
         "CUSTOMER ID: 17KR67WK\n" +
         "---------------------\n" +
         "Message from Customer Service\n" +
         "Representative: Giorgio DiGiorno\n" +
         "---------------------\n";
 
-    string[] warnings = new string[]
+    string[] pelpWarnings = new string[]
     {
         "Your account has been flagged on " +
         "suspicion of fabricating negative " +
@@ -43,20 +44,44 @@ public class CitationFactory : MonoBehaviour
         "Stop. This is your final warning.",
 
         "I see you.\n" +
-        "You can't get away this time.\n\n" +
+        "You won't get away this time.\n\n" +
         "Kindly stay put while the Pelp Content " +
         "Moderation and User Termination team " +
         "expunge your location."
     };
 
-    public void RegisterCitation(bool zelp)
+    string header = "KPI Report:\n" +
+        "Achievement Regression Index\n" +
+        "---------------------\n" +
+        "New data point received in category: " +
+        "Wastefulness/Incompetence\n" +
+        "---------------------\n" +
+        "Detail: ";
+
+    public void RegisterCitation(bool pelp, string message = "")
     {
-        GameObject newCitation = Instantiate(citationPrefab);
-        GameObject gameText = newCitation.transform.GetChild(0).GetChild(0).gameObject;
-        if (zelp && citationLevel < 4)
+        if (pelp && citationLevel < 4)
         {
-            gameText.GetComponent<TextMeshProUGUI>().text = header + warnings[citationLevel];
+            GameObject newCitation = Instantiate(citationPrefab);
+            GameObject gameText = newCitation.transform.GetChild(0).GetChild(0).gameObject;
+            gameText.GetComponent<TextMeshProUGUI>().text = pelpHeader + pelpWarnings[citationLevel];
             citationLevel++;
+            if (currentCitation is null)
+            {
+                currentCitation = newCitation;
+            }
+            else
+            {
+                citationQueue.Enqueue(newCitation);
+            }
+        } else if (pelp) {
+            SceneManager.LoadScene("BadEnding");
+        }
+        else
+        {
+            GameObject newCitation = Instantiate(citationPrefab);
+            GameObject gameText = newCitation.transform.GetChild(0).GetChild(0).gameObject;
+            gameText.GetComponent<TextMeshProUGUI>().text = header + message;
             if (currentCitation is null)
             {
                 currentCitation = newCitation;
