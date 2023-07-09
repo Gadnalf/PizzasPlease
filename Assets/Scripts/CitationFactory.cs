@@ -5,6 +5,8 @@ using UnityEngine;
 public class CitationFactory : MonoBehaviour
 {
     public GameObject citationPrefab;
+    public AudioSource audioPlayer;
+    public AudioClip citationSound;
     public float printSpeed = 1f;
 
     private GameObject currentCitation;
@@ -72,6 +74,7 @@ public class CitationFactory : MonoBehaviour
                 currentCitation.GetComponent<DraggableObjectBehaviour>().draggable = false;
                 if (printingProgress < 3)
                 {
+                    audioPlayer.PlayOneShot(citationSound);
                     currentCitation.GetComponent<DraggableObjectBehaviour>().animateSlide(currentCitation.transform.position,
                     currentCitation.transform.position + Vector3.up * 2.5f,
                     printSpeed);
