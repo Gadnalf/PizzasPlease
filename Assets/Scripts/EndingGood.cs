@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndingGood : MonoBehaviour
 {
@@ -68,7 +69,7 @@ public class EndingGood : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && accept3) {
             clickIndicator3.SetActive(false);
             accept3 = false;
-            Application.Quit();
+            SceneManager.LoadScene("TitleScreen");
         }
     }
 }
