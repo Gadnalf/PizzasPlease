@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 01f38e050c19e6a4d8b580e43e1b2337
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Eryka
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 5f6e4c152af4f5e4db358b7b571466dc, type: 3}
+  - {fileID: 12800000, guid: 2e37f84c999e901448e6a83cfd414ee1, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
