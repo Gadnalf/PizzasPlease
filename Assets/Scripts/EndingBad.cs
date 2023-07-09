@@ -15,8 +15,11 @@ public class EndingBad : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Stop the continuous bg music from the primary play scene
-        GameObject.FindGameObjectWithTag("BGMusic").GetComponent<ContinuousMusicHandler>().StopMusicAndDestroy();
+        if (GameObject.FindGameObjectsWithTag("BGMusic").Length > 0)
+        {
+            // Stop the continuous bg music from the primary play scene
+            GameObject.FindGameObjectWithTag("BGMusic").GetComponent<ContinuousMusicHandler>().StopMusicAndDestroy();
+        }
 
         StartCoroutine(RenderCongrats());
     }

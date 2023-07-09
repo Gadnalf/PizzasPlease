@@ -21,8 +21,11 @@ public class EndingGood : MonoBehaviour
     private string negativeScoreText = "As specified in the contract, you are not getting a salary. In addition, your poor performance means you owe the company: ";
     void Start()
     {
-        // Stop the continuous bg music from the primary play scene
-        GameObject.FindGameObjectWithTag("BGMusic").GetComponent<ContinuousMusicHandler>().StopMusicAndDestroy();
+        if (GameObject.FindGameObjectsWithTag("BGMusic").Length > 0)
+        { 
+            // Stop the continuous bg music from the primary play scene
+            GameObject.FindGameObjectWithTag("BGMusic").GetComponent<ContinuousMusicHandler>().StopMusicAndDestroy();
+        }
 
         score = PlayerPrefs.GetInt("score");
         if (score < 0) {
