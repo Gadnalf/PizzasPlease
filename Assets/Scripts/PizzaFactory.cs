@@ -172,6 +172,19 @@ public class PizzaFactory : MonoBehaviour
                 }
                 messedUpReason = "Ingredient " + name.Replace('_', ' ') + " " + word + " on right half.";            }
         }
+        else if (rand < 0.45)
+        {
+            if (Random.Range(0f, 1f) > 0.5)
+            {
+                pizzaOrder.Diameter += 2;
+                messedUpReason = "Too big.";
+            }
+            else
+            {
+                pizzaOrder.Diameter -= 2;
+                messedUpReason = "Too small.";
+            }
+        }
         else if (rand < 0.6)
         {
             if (pizzaOrder.Slices == 0 || Random.Range(0f, 1f) > 0.5)
