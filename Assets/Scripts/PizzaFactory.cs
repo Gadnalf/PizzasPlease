@@ -437,6 +437,7 @@ public class PizzaFactory : MonoBehaviour
 
         string GenerateSidedOption(string side, string ingredient) {
             string[] options = {
+                "{0} {1}",
                 "{0} side {1}",
                 "{1}({0})",
                 "{1}, {0} side only",
