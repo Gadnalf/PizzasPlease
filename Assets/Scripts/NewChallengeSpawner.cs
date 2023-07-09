@@ -47,7 +47,7 @@ public class NewChallengeSpawner : MonoBehaviour
             ErroredJudgement(false);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
             streakText.GetComponent<TextMeshProUGUI>().text = "- 30";
-            citationFactory.RegisterCitation(false);
+            citationFactory.RegisterCitation(false, messedUpReason);
             StartCoroutine(ShowStreak());
         } else if (!currentPizzaGood) {
             streak = Math.Min(streak + 1, 3);
