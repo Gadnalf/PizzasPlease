@@ -8,6 +8,11 @@ public class PizzaTrashBehaviour : MonoBehaviour
     public bool shouldDrop;
     public float pizzaTrashSpeed = 0.9f;
 
+    private void Start()
+    {
+        eventSystem = GameObject.Find("EventSystem");
+    }
+
     void Update() {
         if (Input.GetMouseButtonUp(0) && shouldDrop) {
             if (eventSystem.GetComponents<NewChallengeSpawner>().Length != 0) {
@@ -22,7 +27,7 @@ public class PizzaTrashBehaviour : MonoBehaviour
 
                 // Delay the onGoodReview call to give time for the pizza slide out animation
                 // before the pizza gameobject is destroyed
-                spawner.Invoke("onGoodReview", 2.0f);
+                spawner.Invoke("onTrashPizza", 2.0f);
             }
         }
     }

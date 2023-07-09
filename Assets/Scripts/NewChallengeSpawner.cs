@@ -18,6 +18,11 @@ public class NewChallengeSpawner : MonoBehaviour
     private int streak;
     public bool currentPizzaGood;
     public string messedUpReason;
+
+    public bool reviewed;
+    public bool pizzaTrashed;
+    public bool receiptTrashed;
+
     void Start() {
         pizzaFactory = GetComponent<PizzaFactory>();
         citationFactory = GetComponent<CitationFactory>();
@@ -29,9 +34,13 @@ public class NewChallengeSpawner : MonoBehaviour
     }
 
     public void Review(bool thrownAway){
-        if (thrownAway && currentPizzaGood) {
+        reviewed = true;
+        if (thrownAway && currentPizzaGood)
+        {
             // Do nothing;
-        } else if (thrownAway) {
+        }
+        else if (thrownAway)
+        {
             streak = 0;
             score -= 300;
             Debug.Log("Messed up reason: " + messedUpReason);
@@ -39,12 +48,16 @@ public class NewChallengeSpawner : MonoBehaviour
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
             streakText.GetComponent<TextMeshProUGUI>().text = "- 500";
             citationFactory.RegisterCitation(false);
-        } else if (!currentPizzaGood) {
+        }
+        else if (!currentPizzaGood)
+        {
             streak = Math.Min(streak + 1, 3);
-            score += 100*streak;
+            score += 100 * streak;
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.green;
-            streakText.GetComponent<TextMeshProUGUI>().text = "+ " + (streak*100).ToString();
-        } else {
+              streakText.GetComponent<TextMeshProUGUI>().text = "+ " + (streak * 100).ToString();
+        }
+        else
+        {
             streak = 0;
             score -= 300;
             ErroredJudgement(true);
@@ -52,20 +65,39 @@ public class NewChallengeSpawner : MonoBehaviour
             streakText.GetComponent<TextMeshProUGUI>().text = "- 500";
             citationFactory.RegisterCitation(true);
         }
-        scoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
+        scoreText.GetComponent<TextMeshProUGUI>().text = "Score: $" + score.ToString();
         StartCoroutine(ShowStreak());
-        OnReviewSubmitted();
     }
 
-    public void onGoodReview() {
-        Review(true);
+    public void onTrashPizza() {
+        if (!reviewed)
+        {
+            Review(true);
+        }
+        pizzaTrashed = true;
+        if (receiptTrashed)
+        {
+            SpawnNewChallenge();
+        }
+    }
+
+    public void onTrashReceipt()
+    {
+        receiptTrashed = true;
+        if (pizzaTrashed)
+        {
+            SpawnNewChallenge();
+        }
     }
 
     public void onBadReview() {
         Review(false);
     }
 
-    public void OnReviewSubmitted() {
+    public void SpawnNewChallenge() {
+        reviewed = false;
+        pizzaTrashed = false;
+        receiptTrashed = false;
         Destroy(instantiatedPizza);
         Destroy(instantiatedReceipt);
         OrderNewPizza();

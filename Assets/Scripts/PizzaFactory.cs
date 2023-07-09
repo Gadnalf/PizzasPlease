@@ -77,7 +77,7 @@ public class PizzaFactory : MonoBehaviour
         Debug.Log("diameter" + diameter);
 
         // set number of slices
-        slices = Random.Range(0,6) * 2;
+        slices = Random.Range(0,7) * 2;
 
         // set left ingredients
         if (Random.Range(0f, 1f) > 0.5)
@@ -304,7 +304,6 @@ public class PizzaFactory : MonoBehaviour
             pizza.GetComponent<Renderer>().material.SetColor("_Color", new Color(150f/256f, 75f/256f, 0));
         }
 
-        pizza.GetComponent<PizzaTrashBehaviour>().eventSystem = gameObject;
         pizza.transform.localScale = pizza.transform.localScale * (order.Diameter / 16f);
 
         return pizza;
