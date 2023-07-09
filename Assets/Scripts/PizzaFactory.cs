@@ -126,6 +126,62 @@ public class PizzaFactory : MonoBehaviour
     // MESS UP THE PIZZA
     public PizzaOrder MessUpPizzaOrder(PizzaOrder pizzaOrder)
     {
+        float rand = Random.Range(0f, 1f);
+        if (rand < 0.3)
+        {
+            // Flip something
+            int i = Random.Range(0, pizzaOrder.LeftIngredients.Length);
+            if (Random.Range(0f, 1f) > 0.5)
+            {
+                pizzaOrder.LeftIngredients[i] = !pizzaOrder.LeftIngredients[i];
+            }
+            else
+            {
+                pizzaOrder.RightIngredients[i] = !pizzaOrder.RightIngredients[i];
+            }
+        }
+        else if (rand < 0.6)
+        {
+            if (Random.Range(0f, 1f) > 0.5)
+            {
+                pizzaOrder.Slices += 2;
+            }
+            else
+            {
+                pizzaOrder.Slices -= 2;
+            }
+        }
+        else if (rand < 0.75)
+        {
+            pizzaOrder.WellDone = !pizzaOrder.WellDone;
+        }
+        else if (rand < 0.90)
+        {
+            if (pizzaOrder.LeftIngredients != pizzaOrder.RightIngredients)
+            {
+                if (Random.Range(0f, 1f) > 0.5)
+                {
+                    pizzaOrder.LeftIngredients = pizzaOrder.RightIngredients;
+                }
+                else
+                {
+                    pizzaOrder.RightIngredients = pizzaOrder.LeftIngredients;
+                }
+            }
+            else
+            {
+                pizzaOrder.WellDone = !pizzaOrder.WellDone;
+            }
+        }
+        else
+        {
+            PizzaOrder newPizzaOrder = GenerateNewPizzaOrder();
+            if (newPizzaOrder.Equals(pizzaOrder))
+            {
+                pizzaOrder.WellDone = !pizzaOrder.WellDone;
+            }
+            return newPizzaOrder;
+        }
         return pizzaOrder;
     }
 
@@ -149,8 +205,14 @@ public class PizzaFactory : MonoBehaviour
         gameText.GetComponent<TextMeshProUGUI>().text = GenerateReceiptStringFromPizzaOrder(pizzaOrder);
 
         bool currentPizzaGood = Random.Range(0, 2) != 0;
-
-        instantiatedPizza = InstantiatePizza(pizzaOrder);
+        if (!currentPizzaGood)
+        {
+            instantiatedPizza = InstantiatePizza(MessUpPizzaOrder(pizzaOrder));
+        }
+        else
+        {
+            instantiatedPizza = InstantiatePizza(pizzaOrder);
+        }
 
         instantiatedPizza.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(centerCameraPosition.x , 15), centerCameraPosition, pizzaSlideInSpeed);
         instantiatedReceipt.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(offsetCameraPositon.x, 15), offsetCameraPositon, pizzaSlideInSpeed);
