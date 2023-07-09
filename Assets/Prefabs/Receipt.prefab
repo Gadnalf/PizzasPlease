@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 418596465669848778}
   - component: {fileID: 1553914075948324866}
   - component: {fileID: 1574130190750076882}
+  - component: {fileID: 8200833570424294006}
   m_Layer: 0
   m_Name: Receipt
   m_TagString: Untagged
@@ -277,6 +278,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8200833570424294006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3486111770119561345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0840a3d922a68ca44967ad866677fe0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSystem: {fileID: 0}
+  shouldDrop: 0
+  pizzaTrashSpeed: 0.9
 --- !u!1 &5425828568273073102
 GameObject:
   m_ObjectHideFlags: 0
