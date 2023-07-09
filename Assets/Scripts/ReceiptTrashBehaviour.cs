@@ -22,7 +22,7 @@ public class ReceiptTrashBehaviour : MonoBehaviour
 
                 receipt.GetComponent<DraggableObjectBehaviour>().animateSlide(
                                         receipt.transform.position,
-                                        new Vector2(0, receipt.transform.position.y - 15),
+                                        new Vector2(receipt.transform.position.x, receipt.transform.position.y - 15),
                                         pizzaTrashSpeed);
 
                 // Delay the onGoodReview call to give time for the pizza slide out animation
