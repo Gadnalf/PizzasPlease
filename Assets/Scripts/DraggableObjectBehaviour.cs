@@ -49,10 +49,12 @@ public class DraggableObjectBehaviour : MonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (Input.GetMouseButtonDown(0))
             {
+                
                 Collider2D[] targetObjects = Physics2D.OverlapPointAll(mousePosition);
                 if (targetObjects.Length > 0)
                 {
-                    GameObject hoveredObject = targetObjects[0].transform.gameObject;
+                    Collider2D targetObject = GetHighestObject(targetObjects);
+                    GameObject hoveredObject = targetObject.transform.gameObject;
                     if (hoveredObject == this.gameObject)
                     {
                         selectedObject = hoveredObject;
@@ -75,6 +77,22 @@ public class DraggableObjectBehaviour : MonoBehaviour
                 selectedObject = null;
             }
         }
+    }
+
+    Collider2D GetHighestObject(Collider2D[] results)
+    {
+        int highestValue = 0;
+        Collider2D highestObject = results[0];
+        foreach(Collider2D col in results)
+        {
+            Renderer ren = col.gameObject.GetComponent<Renderer>();
+            if(ren && ren.sortingOrder > highestValue)
+            {
+                highestValue = ren.sortingOrder;
+                highestObject = col;
+            }
+        }
+        return highestObject;
     }
 
     private void FixedUpdate()
