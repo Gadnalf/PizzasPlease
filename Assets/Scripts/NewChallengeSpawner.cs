@@ -12,12 +12,14 @@ public class NewChallengeSpawner : MonoBehaviour
     public GameObject streakText;
 
     private PizzaFactory pizzaFactory;
+    private CitationFactory citationFactory;
     private int warningPoints;
     public int score;
     private int streak;
     public bool currentPizzaGood;
     void Start() {
         pizzaFactory = GetComponent<PizzaFactory>();
+        citationFactory = GetComponent<CitationFactory>();
 
         OrderNewPizza();
         if (alert) {
@@ -53,10 +55,12 @@ public class NewChallengeSpawner : MonoBehaviour
 
     public void onGoodReview() {
         Review(true);
+        citationFactory.RegisterCitation(false);
     }
 
     public void onBadReview() {
         Review(false);
+        citationFactory.RegisterCitation(true);  
     }
 
     public void OnReviewSubmitted() {
