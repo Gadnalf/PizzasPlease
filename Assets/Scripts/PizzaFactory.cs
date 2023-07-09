@@ -373,7 +373,7 @@ public class PizzaFactory : MonoBehaviour
         void AddIngredientsRadially(GameObject ingredient, float angleOffset)
         {
             float angle = angleOffset;
-            for (float radius = ingredientOffset; radius < (order.Diameter - crustOffset); radius += ingredientOffset)
+            for (float radius = ingredientOffset; radius < (16 - crustOffset); radius += ingredientOffset)
             {
                 //Debug.Log("Current circumference: " + 2 * 3.14f * radius);
                 float ingredientAngle = 360/Mathf.RoundToInt(2 * 3.14f * radius / radialIngredientOffset);
