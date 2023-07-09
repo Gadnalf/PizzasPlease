@@ -798,8 +798,11 @@ MonoBehaviour:
     Doneness
 
 
-    Give one star reviews for any pizzas they screwed up, and toss
-    everything. It''s probably horrible anyway.'
+    Click <i>Post Review</i> for wrongly made pizzas.
+
+
+    <i>Toss</i>
+    the pizza and receipt to review the next.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aa130efe8c326b346b9506916ba86719, type: 2}
   m_sharedMaterial: {fileID: 1104766828594575080, guid: aa130efe8c326b346b9506916ba86719, type: 2}
