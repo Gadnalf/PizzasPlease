@@ -53,9 +53,10 @@ public class CitationFactory : MonoBehaviour
     string header = "KPI Report:\n" +
         "Achievement Regression Index\n" +
         "---------------------\n" +
-        "New data point received!\n" +
-        "Wastefulness/General Incompetence" +
-        "Detail:\n";
+        "New data point received in category: " +
+        "Wastefulness/Incompetence\n" +
+        "---------------------\n" +
+        "Detail: ";
 
     public void RegisterCitation(bool pelp, string message = "")
     {
@@ -73,10 +74,10 @@ public class CitationFactory : MonoBehaviour
             {
                 citationQueue.Enqueue(newCitation);
             }
-        } else if (zelp) {
+        } else if (pelp) {
             SceneManager.LoadScene("BadEnding");
         }
-        else if (!pelp)
+        else
         {
             GameObject newCitation = Instantiate(citationPrefab);
             GameObject gameText = newCitation.transform.GetChild(0).GetChild(0).gameObject;
