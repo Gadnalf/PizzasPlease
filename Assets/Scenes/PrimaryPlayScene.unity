@@ -1016,8 +1016,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -528, y: 316}
-  m_SizeDelta: {x: 36.21, y: 9.587}
+  m_AnchoredPosition: {x: -477.0498, y: 316}
+  m_SizeDelta: {x: 24.05, y: 9.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1158818088
 MonoBehaviour:
@@ -1277,6 +1277,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbbd906f11226c46a7cd4bebd797257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1191831807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 444657942351958730, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
+  m_PrefabInstance: {fileID: 6272847170963473644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1191831811
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191831807}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!224 &1280304394 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7727506734568487197, guid: cdeb29d158e64704f9907b7150b3703a, type: 3}
@@ -1370,6 +1420,7 @@ MonoBehaviour:
   alert: {fileID: 895020269}
   scoreText: {fileID: 1158818086}
   streakText: {fileID: 1548818147}
+  score: 0
   currentPizzaGood: 0
 --- !u!114 &1429614065
 MonoBehaviour:
@@ -2145,11 +2196,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2749501542177461705, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: 3.35
       objectReference: {fileID: 0}
     - target: {fileID: 2749501542177461705, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.26
+      value: 3.32
       objectReference: {fileID: 0}
     - target: {fileID: 2749501542177461705, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2186,5 +2237,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 444657942351958730, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1191831811}
   m_SourcePrefab: {fileID: 100100000, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}

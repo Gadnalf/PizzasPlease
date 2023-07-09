@@ -13,9 +13,21 @@ public class EndingGood : MonoBehaviour
     private bool accept1;
     private bool accept2;
     private bool accept3;
+    private int score;
     // Start is called before the first frame update
+
+    private string positiveScoreText = "As specified in the contract, you are not getting a salary. However, your efforts have earned you a bonus of:";
+    private string negativeScoreText = "As specified in the contract, you are not getting a salary. In addition, your poor performance means you owe the company: ";
     void Start()
     {
+        score = PlayerPrefs.GetInt("score");
+        if (score < 0) {
+            salaryText.GetComponent<TypewriterEffect>().fullText = negativeScoreText;
+            scoreText.GetComponent<TypewriterEffect>().fullText = "$" + (-score).ToString();
+        } else {
+            salaryText.GetComponent<TypewriterEffect>().fullText = positiveScoreText;
+            scoreText.GetComponent<TypewriterEffect>().fullText = "$" + score.ToString();
+        }
         StartCoroutine(RenderCongrats());
     }
 
@@ -53,7 +65,7 @@ public class EndingGood : MonoBehaviour
             accept2 = false;
             StartCoroutine(RenderScoreText());
         }
-        if (Input.GetMouseButtonDown(0) && accept2) {
+        if (Input.GetMouseButtonDown(0) && accept3) {
             clickIndicator3.SetActive(false);
             accept3 = false;
             Application.Quit();

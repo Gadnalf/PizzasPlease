@@ -19,7 +19,7 @@ public class TimerController : MonoBehaviour
 
     IEnumerator RunClock() {
         TextMeshProUGUI textComponent = clock.GetComponent<TextMeshProUGUI>();
-        while (hours < 9) {
+        while (hours < 18) {
             yield return new WaitForSeconds(delay);
             mins++;
             if (mins >= 60) {
@@ -28,6 +28,11 @@ public class TimerController : MonoBehaviour
             }
             textComponent.text = System.String.Format("{0:00}:{1:00}", hours, mins);
         }
+
+        int currentScore = GetComponent<NewChallengeSpawner>().GetCurrentScore();
+
+        PlayerPrefs.SetInt("score", currentScore);
+        PlayerPrefs.Save();
 
         SceneManager.LoadScene("EndSceneGood");
     }

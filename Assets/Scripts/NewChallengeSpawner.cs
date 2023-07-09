@@ -13,7 +13,7 @@ public class NewChallengeSpawner : MonoBehaviour
 
     private PizzaFactory pizzaFactory;
     private int warningPoints;
-    public static int score;
+    public int score;
     private int streak;
     public bool currentPizzaGood;
     void Start() {
@@ -25,18 +25,26 @@ public class NewChallengeSpawner : MonoBehaviour
         }
     }
 
-    public void Review(bool incorrect){
-        if (incorrect) {
+    public void Review(bool thrownAway){
+        if (thrownAway && currentPizzaGood) {
+            // Do nothing;
+        } else if (thrownAway) {
             streak = 0;
             score -= 500;
-            StartCoroutine(ErroredJudgement());
+            ErroredJudgement(false);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
             streakText.GetComponent<TextMeshProUGUI>().text = "- 500";
-        } else {
+        } else if (!currentPizzaGood) {
             streak = Math.Min(streak + 1, 3);
             score += 100*streak;
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.green;
             streakText.GetComponent<TextMeshProUGUI>().text = "+ " + (streak*100).ToString();
+        } else {
+            streak = 0;
+            score -= 500;
+            ErroredJudgement(true);
+            streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
+            streakText.GetComponent<TextMeshProUGUI>().text = "- 500";
         }
         scoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
         StartCoroutine(ShowStreak());
@@ -44,11 +52,11 @@ public class NewChallengeSpawner : MonoBehaviour
     }
 
     public void onGoodReview() {
-        Review(!currentPizzaGood);
+        Review(true);
     }
 
     public void onBadReview() {
-        Review(currentPizzaGood);
+        Review(false);
     }
 
     public void OnReviewSubmitted() {
@@ -57,18 +65,19 @@ public class NewChallengeSpawner : MonoBehaviour
         OrderNewPizza();
     }
 
+    public int GetCurrentScore() {
+        return score;
+    }
+
     IEnumerator ShowStreak(){
         streakText.GetComponent<TextMeshProUGUI>().enabled = true;
         yield return new WaitForSeconds(2f);
         streakText.GetComponent<TextMeshProUGUI>().enabled = false;
     }
 
-    IEnumerator ErroredJudgement() {
+    void ErroredJudgement(bool isZelp) {
         warningPoints++;
         Debug.Log("Uh oh, you have "+ warningPoints + " warnings!");
-        alert.SetActive(true);
-        yield return new WaitForSeconds(3f);
-        alert.SetActive(false);
     }
 
     public void OrderNewPizza() {
