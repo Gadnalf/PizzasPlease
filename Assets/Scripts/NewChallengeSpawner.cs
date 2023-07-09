@@ -10,6 +10,7 @@ public class NewChallengeSpawner : MonoBehaviour
     public GameObject alert;
     public GameObject scoreText;
     public GameObject streakText;
+    public GameObject panelImage;
 
     private PizzaFactory pizzaFactory;
     private CitationFactory citationFactory;
@@ -30,6 +31,7 @@ public class NewChallengeSpawner : MonoBehaviour
         pizzaFactory = GetComponent<PizzaFactory>();
         citationFactory = GetComponent<CitationFactory>();
 
+        panelImage.GetComponent<SpriteChanger>().ChangeImage();
         OrderNewPizza();
         if (alert) {
             alert.SetActive(false);
@@ -93,7 +95,9 @@ public class NewChallengeSpawner : MonoBehaviour
     }
 
     public void onBadReview() {
-        Review(false);
+        if (!reviewed) {
+            Review(false);
+        }
     }
 
     public void SpawnNewChallenge() {
@@ -102,6 +106,7 @@ public class NewChallengeSpawner : MonoBehaviour
         receiptTrashed = false;
         Destroy(instantiatedPizza);
         Destroy(instantiatedReceipt);
+        panelImage.GetComponent<SpriteChanger>().ChangeImage();
         OrderNewPizza();
     }
 
