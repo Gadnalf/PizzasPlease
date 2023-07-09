@@ -2849,6 +2849,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Citation
       objectReference: {fileID: 0}
+    - target: {fileID: 984555190609254399, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4395313
+      objectReference: {fileID: 0}
     - target: {fileID: 2246964385999596904, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -2891,6 +2895,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2246964385999596904, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2828374422719338521, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.012190934
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296560877245057152, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
+      propertyPath: m_text
+      value: 'KPI: BLAH BLAH'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296560877245057152, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
+      propertyPath: m_margin.w
+      value: 1.9322357
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296560877245057152, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
+      propertyPath: m_margin.x
+      value: 10.065086
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296560877245057152, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
+      propertyPath: m_margin.y
+      value: 1.3376999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296560877245057152, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
+      propertyPath: m_margin.z
+      value: 9.508589
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296560877245057152, guid: 1a863b3b9767fe946aef5d7e6f9a3ad3, type: 3}
+      propertyPath: m_characterSpacing
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
