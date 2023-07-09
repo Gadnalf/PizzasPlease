@@ -56,8 +56,8 @@ public class NewChallengeSpawner : MonoBehaviour
             streakText.GetComponent<TextMeshProUGUI>().text = "+ " + (streak*10).ToString();
             StartCoroutine(ShowStreak());
         } else {
+            score += 10 * streak;
             streak = 0;
-            score -= 30;
             ErroredJudgement(true);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
             streakText.GetComponent<TextMeshProUGUI>().text = "- 30";
