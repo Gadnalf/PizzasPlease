@@ -41,7 +41,7 @@ public class TimerController : MonoBehaviour
 
             if (hours == 17 && mins == 36)
             {
-                audioManager.PlaySound(audioManager.timerTicking);
+                audioManager.PlaySound(audioManager.timerTicking, 0.6f);
             }
         }
 

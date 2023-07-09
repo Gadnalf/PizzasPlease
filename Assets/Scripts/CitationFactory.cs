@@ -106,7 +106,7 @@ public class CitationFactory : MonoBehaviour
                 currentCitation.GetComponent<DraggableObjectBehaviour>().draggable = false;
                 if (printingProgress < 3)
                 {
-                    audioManager.PlaySound(audioManager.citationSound, 0.5f);
+                    audioManager.PlaySound(audioManager.citationSound, 0.25f);
                     currentCitation.GetComponent<DraggableObjectBehaviour>().animateSlide(currentCitation.transform.position,
                     currentCitation.transform.position + Vector3.up * 2.5f,
                     printSpeed);

@@ -29,7 +29,7 @@ public class PizzaTrashBehaviour : MonoBehaviour
                                         new Vector2(pizza.transform.position.x, pizza.transform.position.y - 15),
                                         pizzaTrashSpeed);
 
-                audioManager.PlaySound(audioManager.trashSound);
+                audioManager.PlaySound(audioManager.trashSound, 0.7f);
 
                 // Delay the onGoodReview call to give time for the pizza slide out animation
                 // before the pizza gameobject is destroyed

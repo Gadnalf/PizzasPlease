@@ -126,7 +126,7 @@ public class NewChallengeSpawner : MonoBehaviour
     }
 
     public void OrderNewPizza() {
-        audioManager.PlaySound(audioManager.bellDing);
+        audioManager.PlaySound(audioManager.bellDing, 0.5f);
 
         PizzaFactory.PizzaOrder order = pizzaFactory.GenerateNewPizzaOrder();
         PizzaFactory.GeneratedPizza pizza = pizzaFactory.CreatePizza(order);
