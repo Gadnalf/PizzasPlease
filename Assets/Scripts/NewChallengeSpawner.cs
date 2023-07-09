@@ -36,6 +36,7 @@ public class NewChallengeSpawner : MonoBehaviour
             ErroredJudgement(false);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
             streakText.GetComponent<TextMeshProUGUI>().text = "- 500";
+            citationFactory.RegisterCitation(false);
         } else if (!currentPizzaGood) {
             streak = Math.Min(streak + 1, 3);
             score += 100*streak;
@@ -47,6 +48,7 @@ public class NewChallengeSpawner : MonoBehaviour
             ErroredJudgement(true);
             streakText.GetComponent<TextMeshProUGUI>().faceColor = Color.red;
             streakText.GetComponent<TextMeshProUGUI>().text = "- 500";
+            citationFactory.RegisterCitation(true);
         }
         scoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
         StartCoroutine(ShowStreak());
@@ -55,12 +57,10 @@ public class NewChallengeSpawner : MonoBehaviour
 
     public void onGoodReview() {
         Review(true);
-        citationFactory.RegisterCitation(false);
     }
 
     public void onBadReview() {
         Review(false);
-        citationFactory.RegisterCitation(true);  
     }
 
     public void OnReviewSubmitted() {
