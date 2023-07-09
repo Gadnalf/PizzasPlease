@@ -214,8 +214,9 @@ public class PizzaFactory : MonoBehaviour
             instantiatedPizza = InstantiatePizza(pizzaOrder);
         }
 
+        // Receipt has spherical interpolation
         instantiatedPizza.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(centerCameraPosition.x , 15), centerCameraPosition, pizzaSlideInSpeed);
-        instantiatedReceipt.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(offsetCameraPositon.x, 15), offsetCameraPositon, pizzaSlideInSpeed);
+        instantiatedReceipt.GetComponent<DraggableObjectBehaviour>().animateSlide(new Vector2(offsetCameraPositon.x, 15), offsetCameraPositon, pizzaSlideInSpeed, true);
 
         return new GeneratedPizza(instantiatedPizza, instantiatedReceipt, currentPizzaGood);
     }
