@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9d74110ceb90f41986cf8e2061ec50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  draggable: 1
   selectedObject: {fileID: 0}
 --- !u!61 &1578737022071525689
 BoxCollider2D:
