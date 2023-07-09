@@ -257,6 +257,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Citation
       objectReference: {fileID: 0}
+    - target: {fileID: 5986025735295887960, guid: 3dc39b42741dcdd439b1e4d858b7971c, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1114,7 +1118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -477.0498, y: 316}
+  m_AnchoredPosition: {x: -361, y: 228}
   m_SizeDelta: {x: 24.05, y: 9.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1158818088
@@ -1139,7 +1143,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Score:
 
-    0'
+    $0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -1202,7 +1206,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0.26848602, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.7011452, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1380,6 +1384,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 444657942351958730, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
   m_PrefabInstance: {fileID: 6272847170963473644}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1191831815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191831807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbbbd906f11226c46a7cd4bebd797257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!60 &1191831816
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1676,6 +1692,9 @@ MonoBehaviour:
   score: 0
   currentPizzaGood: 0
   messedUpReason: 
+  reviewed: 0
+  pizzaTrashed: 0
+  receiptTrashed: 0
 --- !u!114 &1429614065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1911,7 +1930,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -528, y: 160}
+  m_AnchoredPosition: {x: -367.08, y: 75}
   m_SizeDelta: {x: 36.21, y: 9.587}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1548818149
@@ -2552,6 +2571,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 444657942351958730, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1191831815}
     - targetCorrespondingSourceObject: {fileID: 444657942351958730, guid: 56e38d3f2ffe27c41b22a8356e93d9c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1191831816}

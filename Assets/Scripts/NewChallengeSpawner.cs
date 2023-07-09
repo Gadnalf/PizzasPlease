@@ -34,6 +34,7 @@ public class NewChallengeSpawner : MonoBehaviour
     }
 
     public void Review(bool thrownAway){
+        reviewed = true;
         if (thrownAway && currentPizzaGood)
         {
             // Do nothing;
@@ -76,7 +77,7 @@ public class NewChallengeSpawner : MonoBehaviour
         pizzaTrashed = true;
         if (receiptTrashed)
         {
-            OnReviewSubmitted();
+            SpawnNewChallenge();
         }
     }
 
@@ -85,7 +86,7 @@ public class NewChallengeSpawner : MonoBehaviour
         receiptTrashed = true;
         if (pizzaTrashed)
         {
-            OnReviewSubmitted();
+            SpawnNewChallenge();
         }
     }
 
@@ -93,9 +94,9 @@ public class NewChallengeSpawner : MonoBehaviour
         Review(false);
     }
 
-    public void OnReviewSubmitted() {
+    public void SpawnNewChallenge() {
         reviewed = false;
-        receiptTrashed = false;
+        pizzaTrashed = false;
         receiptTrashed = false;
         Destroy(instantiatedPizza);
         Destroy(instantiatedReceipt);
