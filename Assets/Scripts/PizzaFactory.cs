@@ -14,6 +14,7 @@ public class PizzaFactory : MonoBehaviour
     public GameObject rightCheese;
     public List<GameObject> sauces;
     public List<GameObject> ingredients;
+    public List<GameObject> slices;
 
     public float ingredientOffset = 3; //inches
     public float radialIngredientOffset = 3f; //offset around circle
@@ -248,6 +249,10 @@ public class PizzaFactory : MonoBehaviour
             }
         }
 
+        if (order.Slices != 0) {
+            AddSlices(slices[0]);
+        }
+
         if (order.WellDone)
         {
             pizza.GetComponent<Renderer>().material.SetColor("_Color", new Color(150f/256f, 75f/256f, 0));
@@ -272,6 +277,13 @@ public class PizzaFactory : MonoBehaviour
             {
                 AddTopping(ingredients[index - sauces.Count - 1]);
             }
+        }
+
+        void AddSlices(GameObject ingredient) {
+            GameObject slices = Instantiate(ingredient);
+            slices.transform.position = origin;
+            slices.transform.parent = pizza.transform;
+            slices.GetComponent<Renderer>().sortingOrder = 4;
         }
 
         void AddSauce(GameObject ingredient)

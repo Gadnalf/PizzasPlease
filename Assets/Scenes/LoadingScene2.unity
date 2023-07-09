@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fullText: 'Note from Boss: The owner burned down my house, so the more screwups
-    you can find, the more I''ll pay you. Don''t get yourself banned from Zelp though.'
+    you can find, the more I''ll pay you. Don''t get yourself banned from Pelp though.'
 --- !u!114 &579095454
 MonoBehaviour:
   m_ObjectHideFlags: 0
